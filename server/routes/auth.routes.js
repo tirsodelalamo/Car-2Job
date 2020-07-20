@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 router.post("/signup", (req, res, next) => {
 
-  const { username, password, name, lastname, email, phone, role } = req.body
+  const { username, password, name, lastName, email, phone, role, pocket } = req.body
 
   if (!username || !password || !name || !email || !phone || !role) {
     res.status(400).json({ message: "Rellene todos los campos solicitados." });
@@ -19,7 +19,7 @@ router.post("/signup", (req, res, next) => {
       .status(400)
       .json({
         message:
-          "La contraseña debe tener mas de cuatro caracteres.",
+          "La contraseña debe tener más de 4 caracteres.",
       });
     return;
   }
@@ -42,10 +42,11 @@ router.post("/signup", (req, res, next) => {
       username: username,
       password: hashPass,
       name: name,
-      lastname: lastname,
+      lastName: lastName,
       email: email,
       phone: phone,
-      role: role
+      role: role,
+      pocket: pocket
     });
 
     aNewUser.save((err) => {

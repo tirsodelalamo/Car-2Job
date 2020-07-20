@@ -30,7 +30,7 @@ const userSchema = new Schema({
     }, 
     role: {
         type: String,
-        enum: ['ADMIN', 'DRIVER', 'USER']
+        enum: ['ADMIN', 'Conductor', 'Pasajero']
     }
     
 }, {
