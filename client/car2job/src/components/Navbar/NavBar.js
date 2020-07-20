@@ -27,6 +27,8 @@ class Navigation extends Component {
 
 
     render() {
+      
+      console.log(this.props)
         
         return (
           <>
@@ -43,12 +45,16 @@ class Navigation extends Component {
                   
                     (
                       <>
+                        {this.props.loggedInUser.role === "Pasajero" ?
                         <Nav.Link as="span">
                           <NavLink to="/mapa" activeStyle={{ color: 'white' }}>Vista usuario</NavLink>
                         </Nav.Link>
+                        : null}
+                        {this.props.loggedInUser.role === "Conductor" ?
                         <Nav.Link as="span">
                           <NavLink to="/conductor" activeStyle={{ color: 'white' }}>Vista conductor</NavLink>
                         </Nav.Link>
+                        : null}
                         <Nav.Link as="span">
                           <NavLink to="/perfil" activeStyle={{ color: 'white' }}>Perfil</NavLink>
                         </Nav.Link>

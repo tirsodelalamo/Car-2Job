@@ -7,12 +7,12 @@ import AuthService from './../service/AuthService'
 import Navigation from './Navbar/NavBar'
 import MapView from './Pages/MapView/MapView'
 import DriverView from './Pages/DriverView/DriverView'
-import Profile from './Pages/Profile/Profile'
+import ProfileView from './Pages/Profile/Profile'
 import Home from './Pages/Home/Home'
 import Login from './Auth/LogIn/Login'
 import SignUp from './Auth/SignUp/SignUp'
 
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, Redirect } from "react-router-dom"
 
 
 class App extends Component {
@@ -45,23 +45,33 @@ class App extends Component {
 
     return (
       <>
-        <Navigation setTheUser={this.setTheUser} loggedInUser={this.state.loggedInUser}/>
+        <Navigation
+          setTheUser={this.setTheUser}
+          loggedInUser={this.state.loggedInUser}
+        />
 
         <Switch>
           <Route exact path="/" render={() => <Home />} />
           <Route
             path="/login"
-            render={props => (
+            render={(props) => (
               <Login {...props} setTheUser={this.setTheUser} />
-            )}/>
+            )}
+          />
           <Route
             path="/signup"
-            render={props => (
+            render={(props) => (
               <SignUp {...props} setTheUser={this.setTheUser} />
-            )}/>
+            )}
+          />
           <Route path="/mapa" render={() => <MapView />} />
           <Route path="/conductor" render={() => <DriverView />} />
-          <Route path="/perfil" render={() => <Profile />} />
+          <Route
+            path="/perfil"
+            render={() =>
+              this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} /> :
+                <Redirect to="/login" />}
+          />
         </Switch>
       </>
     );
