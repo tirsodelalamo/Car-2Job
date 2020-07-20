@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 
-import AuthService from '../../../service/AuthService'
+import ProfileService from '../../../service/ProfileService'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { Link } from 'react-router-dom'
 
-class SignUp extends Component {
+class EditProfile extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -20,29 +21,7 @@ class SignUp extends Component {
             phone: '',
             role: ''
         }
-        this.authService = new AuthService()
-    }
-
-    componentDidMount = () => {
-
-        const id = this.props.match.params.id
-
-        this.authService
-            .getUser(id)
-            .then(res => this.updateUserState(res.data))
-            .catch(err => console.log(err))
-    }
-
-    updateUserState = data => {
-
-        this.setState({
-            username: data.username || "",
-            name: data.name || "",
-            lastName: data.lastName || "",
-            email: data.email || "",
-            phone: data.phone || "",
-            role: data.role            
-        })
+        this.profileService = new ProfileService()
     }
 
     handleInputChange = e => {
@@ -52,24 +31,13 @@ class SignUp extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        const id = this.props.match.params.id
-        this.props.location.pathname.includes('edit') ? this.editUser(id, this.state) : this.signUp()
-        
-    }
-
-    signUp = () => {
-        this.authService
-            .signUp(this.state)
-            .then (() => this.props.history.push('/'))
-            .catch(err => console.log(err))
-        
-    }
-
-    editUser = (id, user) => {
-        this.authService
-            .editUser(id, user)
-            .then(() => this.props.history.push('/profile'))
-            .catch(err => console.log(err))
+        this.profileService
+        //   .signup(this.state)
+        //   .then(response => {
+        //     this.props.setTheUser(response.data);
+        //     this.props.history.push("/");
+        //  })
+          .catch((err) => console.log(err.response.data.message));
     }
 
     render() {
@@ -77,7 +45,7 @@ class SignUp extends Component {
             <Container as="main">
                 <Row>
                     <Col md={{ offset: 3, span: 6}}>
-                        {this.props.location.pathname.includes('edit') ? <h3>Edita tu perfil</h3> : <h3>Formulario de Registro</h3>}
+                        <h3>Formulario de Registro</h3>
                         <hr></hr>
                         <Form onSubmit={this.handleFormSubmit}>
                             <Form.Group>
@@ -113,7 +81,8 @@ class SignUp extends Component {
                                     <option>Pasajero</option>
                                 </Form.Control>
                             </Form.Group> 
-                            <Button variant="dark" type="submit">Enviar</Button>
+                            <Button variant="dark" type="submit">Registrame!</Button>
+                            <Link to={`profile/`} className="btn btn-dark btn-sm">Volver</Link>
                         </Form>
                     </Col>
                 </Row>
@@ -122,4 +91,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+export default EditProfile
