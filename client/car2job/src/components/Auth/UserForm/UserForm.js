@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import AuthService from '../../../service/AuthService'
+import FilesService from '../../../service/FilesService'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -18,9 +19,11 @@ class UserForm extends Component {
             lastName: '',
             email: '',
             phone: '',
-            role: ''
+            role: '',
+            imageUrl: ''
         }
         this.authService = new AuthService()
+        this.filesService = new FilesService()    // CLOUDINARYCONFIG 
     }
 
     componentDidMount = () => {
@@ -41,8 +44,22 @@ class UserForm extends Component {
             lastName: data.lastName || "",
             email: data.email || "",
             phone: data.phone || "",
-            role: data.role            
+            role: data.role,
+            image: data.image || ""            
         })
+    }
+
+    // CLOUDINARYCONFIG  
+    handleFileUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append("imageUrl", e.target.files[0])
+
+        this.filesService.handleUpload(uploadData)
+            .then(response => {
+                console.log('Subida de archivo finalizada! La URL de Cloudinray es: ', response.data.secure_url)
+                this.setState({ imageUrl: response.data.secure_url })
+            })
+            .catch(err => console.log(err))
     }
 
     handleInputChange = e => {
@@ -68,7 +85,7 @@ class UserForm extends Component {
         this.authService
             .editUser(id, user)
             .then(response => {
-                this.setTheUser(response.data)
+                this.props.setTheUser(response.data)
                 this.props.history.push('/perfil')})
             .catch(err => console.log(err))
     }
@@ -116,6 +133,12 @@ class UserForm extends Component {
                                     <option>Pasajero</option>
                                 </Form.Control>
                             </Form.Group> 
+                            {this.props.location.pathname.includes('edit') ?
+                            <Form.Group>
+                                <Form.Label>Imagen de Perfil</Form.Label>
+                                <Form.Control name="imageUrl" type="file" onChange={this.handleFileUpload}/>
+                            </Form.Group>
+                            : null}
                             <Button variant="dark" type="submit">Enviar</Button>
                         </Form>
                     </Col>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Link } from 'react-router-dom'
+import './Profile.css'
 
 class ProfileView extends Component {
 
@@ -12,12 +13,10 @@ class ProfileView extends Component {
           lastname: '',
           email: '',
           phone: '',
-          pocket: '',
           role: '',
+          imageUrl: ''
         };
     }
-
-    setTheUser = user => this.setState( { loggedInUser: user }, () => console.log("El estado del perfil ha cambiado", this.state))
     
     render() {
       
@@ -28,14 +27,14 @@ class ProfileView extends Component {
               <div className="row">
                 <div className="col-6">
                   <h1>Hola {this.props.loggedInUser.name}</h1>
-                  <p>Aquí va la imagen</p>
+                  <img className="avatarClass" src={this.props.loggedInUser.imageUrl} alt= "Imagen de Perfil"></img>
                 </div>
                 <div className="col-6">
                   <h2>Datos de Usuario</h2>
                   <hr></hr>
                   <p>Nombre de Usuario: {this.props.loggedInUser.username}</p>
                   <p>Nombre: {this.props.loggedInUser.name}</p>
-                  <p>Apellido: {this.props.loggedInUser.lastname}</p>
+                  <p>Apellido: {this.props.loggedInUser.lastName}</p>
                   <p>Correo electrónico: {this.props.loggedInUser.email}</p>
                   <p>Teléfono: {this.props.loggedInUser.phone}</p>
                   <p>Cartera: {this.props.loggedInUser.pocket}€</p>
