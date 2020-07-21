@@ -23,27 +23,27 @@ class UserForm extends Component {
         this.authService = new AuthService()
     }
 
-    // componentDidMount = () => {
+    componentDidMount = () => {
 
-    //     const id = this.props.match.params.id
+        const id = this.props.match.params.id
 
-    //     this.authService
-    //         .getUser(id)
-    //         .then(res => this.updateUserState(res.data))
-    //         .catch(err => console.log(err))
-    // }
+        this.authService
+            .getUser(id)
+            .then(res => this.updateUserState(res.data))
+            .catch(err => console.log(err))
+    }
 
-    // updateUserState = data => {
+    updateUserState = data => {
 
-    //     this.setState({
-    //         username: data.username || "",
-    //         name: data.name || "",
-    //         lastName: data.lastName || "",
-    //         email: data.email || "",
-    //         phone: data.phone || "",
-    //         role: data.role            
-    //     })
-    // }
+        this.setState({
+            username: data.username || "",
+            name: data.name || "",
+            lastName: data.lastName || "",
+            email: data.email || "",
+            phone: data.phone || "",
+            role: data.role            
+        })
+    }
 
     handleInputChange = e => {
         const { name, value } = e.target
@@ -53,7 +53,7 @@ class UserForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         const id = this.props.match.params.id
-        this.props.location.pathname.includes('editar') ? this.editUser(id, this.state) : this.signUp()        
+        this.props.location.pathname.includes('edit') ? this.editUser(id, this.state) : this.signUp()        
     }
 
     signUp = () => {
@@ -67,7 +67,9 @@ class UserForm extends Component {
     editUser = (id, user) => {
         this.authService
             .editUser(id, user)
-            .then(() => this.props.history.push('/perfil'))
+            .then(response => {
+                this.setTheUser(response.data)
+                this.props.history.push('/perfil')})
             .catch(err => console.log(err))
     }
 
@@ -76,18 +78,20 @@ class UserForm extends Component {
             <Container as="main">
                 <Row>
                     <Col md={{ offset: 3, span: 6}}>
-                        {this.props.location.pathname.includes('editar') ? <h3>Edita tu perfil</h3> : <h3>Formulario de Registro</h3>}
+                        {this.props.location.pathname.includes('edit') ? <h3>Edita tu perfil</h3> : <h3>Formulario de Registro</h3>}
                         <hr></hr>
                         <Form onSubmit={this.handleFormSubmit}>
                             <Form.Group>
                                 <Form.Label>Nombre de Usuario *</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.username} name="username" type="text" />
                             </Form.Group>
+                            {this.props.location.pathname.includes('signup') ? 
                             <Form.Group>
                                 <Form.Label>Contraseña *</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.password} name="password" type="password" />
                                 <Form.Text className="text-muted">La contraseña debe ser al menos de cuatro caracteres</Form.Text>
                             </Form.Group>
+                            : null}
                             <Form.Group>
                                 <Form.Label>Nombre *</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.name} name="name" type="text" />

@@ -12,8 +12,9 @@ export default class AuthService {
     }
 
     login = credentials => this.service.post('/login', credentials)
-    editUser = (id, user) => this.service.post(`/profile/${id}/edit`, user) 
-    signup = credentials => this.service.post('/signup', credentials)
+    editUser = (id, user) => this.service.put(`/profile/${id}/edit`, user) 
+    getUser = (id) => this.service.get(`/profile/${id}/edit`)
+    signUp = credentials => this.service.post('/signup', credentials)
     logout = () => this.service.post('/logout')
     isLoggedIn = () => this.service.get('/loggedin')
 

@@ -68,8 +68,8 @@ class App extends Component {
           <Route path="/conductor" render={() => <DriverView />} />
           <Route
             path="/perfil"
-            render={() =>
-              this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} /> :
+            render= { props =>
+              this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> :
                 <Redirect to="/login" />}
           />
           <Route path='/profile/:id/edit' render = {props => this.state.loggedInUser ? <UserForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to = '/login' />} ></Route>

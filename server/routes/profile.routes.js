@@ -5,19 +5,19 @@ const passport = require("passport")
 const User = require("../models/User.model")
 const bcrypt = require("bcrypt")
 
-// router.get('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', (req, res, next) => {
 
-//     User
-//         .findById(req.params.id)
-//         .then((user) => res.json(user))
-//         .catch((error) => console.log(error))
-// })
+    User
+        .findById(req.params.id)
+        .then((user) => res.json(user))
+        .catch((error) => console.log(error))
+})
 
-router.post('/:id/edit', (req, res, next) => {
+router.put('/:id/edit', (req, res, next) => {
     
     const {
       username,
-      password,
+      // password,
       name,
       lastName,
       email,
@@ -30,19 +30,7 @@ router.post('/:id/edit', (req, res, next) => {
 
     
 
-    User.findById(req.params.id)
-      .then((user) => {
-          user.username = username
-          user.name = name
-          user.lastName = lastName
-          user.email = email
-          user.phone = phone
-          user.role = role
-          user.pocket = pocket
-
-        user.save()
-        return user
-      })
+    User.findByIdAndUpdate(req.params.id, req.body, {new: true})
       .then((user) => res.json(user))
       .catch((err) => console.log(err))      
 })
