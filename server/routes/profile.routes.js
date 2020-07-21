@@ -5,7 +5,7 @@ const passport = require("passport")
 const User = require("../models/User.model")
 const bcrypt = require("bcrypt")
 
-// router.get('/:id', (req, res, next) => {
+// router.get('/:id/edit', (req, res, next) => {
 
 //     User
 //         .findById(req.params.id)
@@ -13,7 +13,7 @@ const bcrypt = require("bcrypt")
 //         .catch((error) => console.log(error))
 // })
 
-router.post('/:id/editar', (req, res, next) => {
+router.post('/:id/edit', (req, res, next) => {
     
     const {
       username,
