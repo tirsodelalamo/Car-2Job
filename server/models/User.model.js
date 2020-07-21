@@ -31,6 +31,10 @@ const userSchema = new Schema({
     role: {
         type: String,
         enum: ['ADMIN', 'Conductor', 'Pasajero']
+    },
+    imageUrl: {
+        type: String,
+        default: 'https://res.cloudinary.com/dagpyusfp/image/upload/v1595351796/Car2Job/iconfinder-3-avatar-2754579_120516_t2fms7.png'
     }
     
 }, {
