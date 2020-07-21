@@ -5,15 +5,15 @@ const passport = require("passport")
 const User = require("../models/User.model")
 const bcrypt = require("bcrypt")
 
-router.get('/:id/profile', (req, res, next) => {
+// router.get('/:id', (req, res, next) => {
 
-    User
-        .findById(req.params.id)
-        .then((user) => res.json(user))
-        .catch((error) => console.log(error))
-})
+//     User
+//         .findById(req.params.id)
+//         .then((user) => res.json(user))
+//         .catch((error) => console.log(error))
+// })
 
-router.post('/:id/profile', (req, res, next) => {
+router.post('/:id/editar', (req, res, next) => {
     
     const {
       username,
@@ -26,10 +26,9 @@ router.post('/:id/profile', (req, res, next) => {
       pocket,
     } = req.body
 
-    if (!username) {
-        res.json({ message: "Introduzca usuario válido" })
-        return
-    }
+    console.log('Entro')
+
+    
 
     User.findById(req.params.id)
       .then((user) => {
@@ -41,10 +40,6 @@ router.post('/:id/profile', (req, res, next) => {
           user.role = role
           user.pocket = pocket
 
-        // if (password !== "") {
-        //   const salt = bcrypt.genSaltSync(bcryptSalt)
-        //   user.password = bcrypt.hashSync(password, salt)
-        // }
         user.save()
         return user
       })

@@ -23,7 +23,7 @@ const ProfileView = props => {
                 <p>Correo electrónico: {props.loggedInUser.email}</p>
                 <p>Teléfono: {props.loggedInUser.phone}</p>
                 <p>Cartera: {props.loggedInUser.pocket}€</p>
-                <Link to={`profile/${props.loggedInUser._id}/edit`} className="btn btn-dark btn-sm">Edita tu perfil</Link>
+                <Link to={`/perfil/${props.loggedInUser._id}/editar`} className="btn btn-dark btn-sm">Edita tu perfil</Link>
 
                 </div>
             </div>

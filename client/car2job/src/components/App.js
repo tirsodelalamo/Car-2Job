@@ -10,7 +10,7 @@ import DriverView from './Pages/DriverView/DriverView'
 import ProfileView from './Pages/Profile/Profile'
 import Home from './Pages/Home/Home'
 import Login from './Auth/LogIn/Login'
-import SignUp from './Auth/SignUp/SignUp'
+import UserForm from './Auth/UserForm/UserForm'
 
 import { Switch, Route, Redirect } from "react-router-dom"
 
@@ -61,7 +61,7 @@ class App extends Component {
           <Route
             path="/signup"
             render={(props) => (
-              <SignUp {...props} setTheUser={this.setTheUser} />
+              <UserForm {...props} setTheUser={this.setTheUser} />
             )}
           />
           <Route path="/mapa" render={() => <MapView />} />
@@ -72,6 +72,7 @@ class App extends Component {
               this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} /> :
                 <Redirect to="/login" />}
           />
+          <Route path='/perfil/:id/editar' render = {props => this.state.loggedInUser ? <UserForm loggedInUser={this.state.loggedInUser} {...props}/> : <Redirect to = '/login' />} />
         </Switch>
       </>
     );

@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-class SignUp extends Component {
+class UserForm extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -23,27 +23,27 @@ class SignUp extends Component {
         this.authService = new AuthService()
     }
 
-    componentDidMount = () => {
+    // componentDidMount = () => {
 
-        const id = this.props.match.params.id
+    //     const id = this.props.match.params.id
 
-        this.authService
-            .getUser(id)
-            .then(res => this.updateUserState(res.data))
-            .catch(err => console.log(err))
-    }
+    //     this.authService
+    //         .getUser(id)
+    //         .then(res => this.updateUserState(res.data))
+    //         .catch(err => console.log(err))
+    // }
 
-    updateUserState = data => {
+    // updateUserState = data => {
 
-        this.setState({
-            username: data.username || "",
-            name: data.name || "",
-            lastName: data.lastName || "",
-            email: data.email || "",
-            phone: data.phone || "",
-            role: data.role            
-        })
-    }
+    //     this.setState({
+    //         username: data.username || "",
+    //         name: data.name || "",
+    //         lastName: data.lastName || "",
+    //         email: data.email || "",
+    //         phone: data.phone || "",
+    //         role: data.role            
+    //     })
+    // }
 
     handleInputChange = e => {
         const { name, value } = e.target
@@ -53,8 +53,7 @@ class SignUp extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         const id = this.props.match.params.id
-        this.props.location.pathname.includes('edit') ? this.editUser(id, this.state) : this.signUp()
-        
+        this.props.location.pathname.includes('editar') ? this.editUser(id, this.state) : this.signUp()        
     }
 
     signUp = () => {
@@ -68,7 +67,7 @@ class SignUp extends Component {
     editUser = (id, user) => {
         this.authService
             .editUser(id, user)
-            .then(() => this.props.history.push('/profile'))
+            .then(() => this.props.history.push('/perfil'))
             .catch(err => console.log(err))
     }
 
@@ -77,7 +76,7 @@ class SignUp extends Component {
             <Container as="main">
                 <Row>
                     <Col md={{ offset: 3, span: 6}}>
-                        {this.props.location.pathname.includes('edit') ? <h3>Edita tu perfil</h3> : <h3>Formulario de Registro</h3>}
+                        {this.props.location.pathname.includes('editar') ? <h3>Edita tu perfil</h3> : <h3>Formulario de Registro</h3>}
                         <hr></hr>
                         <Form onSubmit={this.handleFormSubmit}>
                             <Form.Group>
@@ -122,4 +121,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+export default UserForm
