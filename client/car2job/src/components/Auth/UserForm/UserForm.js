@@ -39,14 +39,14 @@ class UserForm extends Component {
     updateUserState = data => {
 
         this.setState({
-          username: data.username || "",
-          name: data.name || "",
-          lastName: data.lastName || "",
-          email: data.email || "",
-          phone: data.phone || "",
-          role: data.role,
-          imageUrl: data.imageUrl || "",
-        });
+            username: data.username || "",
+            name: data.name || "",
+            lastName: data.lastName || "",
+            email: data.email || "",
+            phone: data.phone || "",
+            role: data.role,
+            imageUrl: data.imageUrl || ""            
+        })
     }
 
     // CLOUDINARYCONFIG  

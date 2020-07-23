@@ -37,6 +37,7 @@ class ProfileView extends Component {
                   <p>Apellido: {this.props.loggedInUser.lastName}</p>
                   <p>Correo electrónico: {this.props.loggedInUser.email}</p>
                   <p>Teléfono: {this.props.loggedInUser.phone}</p>
+                  <p>Tipo de cuenta: {this.props.loggedInUser.role}</p>
                   <p>Cartera: {this.props.loggedInUser.pocket}€</p>
                   <Link
                     to={`profile/${this.props.loggedInUser._id}/edit`}
