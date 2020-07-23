@@ -136,6 +136,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
+
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
@@ -150,11 +151,19 @@ class LocationSearchInput extends React.Component {
     this.setState({ destination });
   };
 
-  handleSelect = (origin, destination) => {
-    geocodeByAddress(origin, destination)
+  handleSelect = (origin) => {
+    geocodeByAddress(origin)
       .then((results) => getLatLng(results[0])) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
-      .then()
-      .then((latLng) => console.log("Success", latLng))
+      .then((latLng) => this.state.origin = latLng)
+      //   .then((latLng) => console.log("Success", latLng))
+      .catch((error) => console.error("Error", error));
+  };
+
+  handleSelect2 = (destination) => {
+    geocodeByAddress(destination)
+      .then((results) => getLatLng(results[0])) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
+      .then((latLng) => this.state.destination = latLng)
+      //   .then((latLng) => console.log("Success", latLng))
       .catch((error) => console.error("Error", error));
   };
 
@@ -208,7 +217,7 @@ class LocationSearchInput extends React.Component {
 
         <PlacesAutocomplete
           value={this.state.destination}
-          onSelect={this.handleSelect}
+          onSelect={this.handleSelect2}
           onChange={this.handleChange2}
           googleCallbackName="initTwo"
         >
