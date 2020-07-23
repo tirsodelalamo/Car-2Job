@@ -1,17 +1,15 @@
 import React from 'react'
 import SimpleMap from './Map/Map'
 import LocationSearchInput from './Autocomplete/InputSelectAuto'
-// import Autocomplete from './Autocomplete/Autocomplete'
+
 
 const MapView = () => {
 
     return (
       <>
-        {/* <Autocomplete />
-        <Autocomplete /> */}
-
+        <h1>Elige tu ruta!</h1>
         <LocationSearchInput />
-        {/* <LocationSearchInput /> */}
+        <p>Las coordenadas son </p>
         <SimpleMap />
       </>
     );
