@@ -45,7 +45,7 @@ class UserForm extends Component {
             email: data.email || "",
             phone: data.phone || "",
             role: data.role,
-            image: data.image || ""            
+            imageUrl: data.imageUrl || ""            
         })
     }
 
