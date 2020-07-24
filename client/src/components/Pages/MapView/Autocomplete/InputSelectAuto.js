@@ -10,7 +10,7 @@ import PlacesAutocomplete, {
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { origin: "", destination: "" };
+    this.state = { origin: {}, destination: {} };
   }
     
   
@@ -27,6 +27,7 @@ class LocationSearchInput extends React.Component {
     geocodeByAddress(origin)
       .then((results) => (getLatLng(results[0]))) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
       .then((latLng) => this.setState({origin: latLng}))
+      .then(() => this.props.setCoordsOrigin(this.state.origin))
       .catch((error) => console.error("Error", error))
   };
 
@@ -35,6 +36,7 @@ class LocationSearchInput extends React.Component {
     geocodeByAddress(destination)
       .then((results) => (getLatLng(results[0]))) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
       .then((latLng) => this.setState({destination: latLng}))
+      .then(() => this.props.setCoordsDestination(this.state.destination))
       .catch((error) => console.error("Error", error))
   };
 
