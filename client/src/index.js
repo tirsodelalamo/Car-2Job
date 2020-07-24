@@ -11,7 +11,7 @@ ReactDOM.render(
     </React.StrictMode>
   </Router>,
   document.getElementById("root")
-);
+)
 
 
 

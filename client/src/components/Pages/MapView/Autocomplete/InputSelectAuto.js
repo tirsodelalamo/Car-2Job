@@ -25,6 +25,7 @@ class LocationSearchInput extends React.Component {
 
   handleSelect = (origin) => {
     geocodeByAddress(origin)
+      //.then(origin => this.setState({origin: origin[0].formatted_address}))
       .then((results) => (getLatLng(results[0]))) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
       .then((latLng) => this.setState({origin: latLng}))
       .then(() => this.props.setCoordsOrigin(this.state.origin))

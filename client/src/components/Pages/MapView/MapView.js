@@ -13,6 +13,8 @@ class MapView extends Component {
 
   setCoordsOrigin = (coords) => this.setState({ origin: coords });
   setCoordsDestination = (coords) => this.setState({ destination: coords });
+  
+
 
   render() {
     return (
@@ -23,11 +25,13 @@ class MapView extends Component {
           setCoordsDestination={this.setCoordsDestination}
         />
         <p>
-          Las coordenadas son: Latitude: {this.state.destination.lat} Longitude:{" "}
-          {this.state.destination.lng}
+          Las coordenadas del origen son: Latitude: {this.state.origin.lat} Longitude: {this.state.origin.lng}
         </p>
-        {console.log("MIRA ESTO", this.state)}
-        <SimpleMap />
+        <p>
+          Las coordenadas del destino son: Latitude: {this.state.destination.lat} Longitude: {this.state.destination.lng}
+        </p>
+        
+        <SimpleMap coordenates = {this.state}/>
       </>
     );
   }
