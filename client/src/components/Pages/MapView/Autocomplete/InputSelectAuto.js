@@ -5,11 +5,15 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 
+
+
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = { origin: "", destination: "" };
   }
+    
+  
 
   handleChange = (origin) => {
     this.setState({ origin });
@@ -35,7 +39,8 @@ class LocationSearchInput extends React.Component {
   };
 
   render() {
-    console.log(this.state)
+      console.log(this.state)
+      
     return (
       <>
         <PlacesAutocomplete
