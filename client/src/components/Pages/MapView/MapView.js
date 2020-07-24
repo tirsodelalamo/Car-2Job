@@ -23,11 +23,10 @@ class MapView extends Component {
           setCoordsDestination={this.setCoordsDestination}
         />
         <p>
-          Las coordenadas son: Latitude: {this.state.destination.lat} Longitude:{" "}
-          {this.state.destination.lng}
+          Las coordenadas son: Latitude: {this.state.destination.lat} Longitude: {this.state.destination.lng}
         </p>
         {console.log("MIRA ESTO", this.state)}
-        <SimpleMap />
+        <SimpleMap data={this.state}/>
       </>
     );
   }

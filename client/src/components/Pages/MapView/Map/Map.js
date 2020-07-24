@@ -13,7 +13,11 @@ class SimpleMap extends Component {
     zoom: 14,
   };
 
-  render() {
+  render(props) {
+    
+    console.log(this.props.data.origin)
+    console.log(this.props.data.destination)
+
     return (
       <div style={{ height: "50vh", width: "100%" }}>
         <GoogleMapReact
@@ -26,6 +30,7 @@ class SimpleMap extends Component {
           <Marker lat={40.3925046} lng={-3.700465} text="My Marker" />
           <Marker lat={40.3945398} lng={-3.6984026} text="My Marker" />
         </GoogleMapReact>
+        {/* <div>{this.props.data.lat}</div> */}
       </div>
     );
   }

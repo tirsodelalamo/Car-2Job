@@ -5,10 +5,9 @@ export default class AuthService {
     constructor() {
 
         this.service = axios.create({
-
-            baseURL: 'http://localhost:5000/api',
-            withCredentials: true
-        })
+          baseURL: process.env.REACT_APP_API_URL,
+          withCredentials: true,
+        });
     }
 
     login = credentials => this.service.post('/login', credentials)

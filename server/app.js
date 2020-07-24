@@ -20,4 +20,6 @@ require('./configs/locals.config')(app)
 // Base URLS
 require('./routes')(app)
 
+
+
 module.exports = app
