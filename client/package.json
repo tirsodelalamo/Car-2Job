@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-react": "^0.5.0-alpha.6",
+    "dotenv-cli": "^3.2.0",
     "google-map-react": "^1.1.7",
     "google-maps-react": "^2.0.6",
     "polyline": "^0.2.0",
@@ -23,7 +24,9 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "dotenv -e .env.dev react-scripts start",
+    "build-dev": "dotenv -e .env.dev react-scripts build",
+    "build-prod": "dotenv -e .env.prod react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

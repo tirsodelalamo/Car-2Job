@@ -49,7 +49,6 @@ class SimpleMap extends Component {
               strokeWeight: 2
             }}/>
         </GoogleMapReact>
-
       </div>
     );
   }
