@@ -64,7 +64,7 @@ class App extends Component {
               <UserForm {...props} setTheUser={this.setTheUser} />
             )}
           />
-          <Route path="/mapa" render={() => <MapView />} />
+          <Route path="/mapa" render={props => this.state.loggedInUser ? <MapView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> :  <Redirect to="/login" />}/>
           <Route path="/conductor" render={() => <DriverView />} />
           <Route
             path="/perfil"
