@@ -20,6 +20,15 @@ const travelSchema = new Schema({
     },
     price: {
         type: Number
+    },
+    owner: {
+        type: mongoose.ObjectId,
+        ref: "User"
+    },
+    status: {
+        type: String,
+        enum: ['Pendiente', 'En proceso', 'Confirmado'],
+        default: "Pendiente"
     }
     },{
         timestamps: true,

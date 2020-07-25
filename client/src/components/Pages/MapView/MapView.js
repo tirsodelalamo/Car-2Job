@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import SimpleMap from "./Map/Map";
+import { withScriptjs } from 'react-google-maps'
 import LocationSearchInput from "./Autocomplete/InputSelectAuto";
-import DirectionRenderComponent from './DirectionRender/DirectionRender'
+import './MapView.css'
 
 class MapView extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       origin: {},
       destination: {},
+      owner: this.props.loggedInUser._id
     };
   }
 
@@ -18,23 +20,19 @@ class MapView extends Component {
 
 
   render() {
+    const MapLoader = withScriptjs(SimpleMap)
     return (
       <>
-        <h1>Elige tu ruta!</h1>
-        <LocationSearchInput
-          setCoordsOrigin={this.setCoordsOrigin}
-          setCoordsDestination={this.setCoordsDestination}
-        />
-        <p>
-          Las coordenadas del origen son: Latitude: {this.state.origin.lat} Longitude: {this.state.origin.lng}
-        </p>
-        <p>
-          Las coordenadas del destino son: Latitude: {this.state.destination.lat} Longitude: {this.state.destination.lng}
-        </p>
-        
-        <SimpleMap coordenates={this.state} />
-        
-        <DirectionRenderComponent coordenates={this.state}/>
+        <div className= "container">
+          <h1>Crea tu ruta!</h1>
+          <LocationSearchInput 
+            setCoordsOrigin={this.setCoordsOrigin}
+            setCoordsDestination={this.setCoordsDestination}
+          />
+          <MapLoader coordenates = {this.state} googleMapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBf8Nlxiwn7uJlN9-H0TWIqQMxIm527UHc" 
+          loadingElement={<div style={{ height: `100%` }} />}
+          />
+        </div>
       </>
     );
   }

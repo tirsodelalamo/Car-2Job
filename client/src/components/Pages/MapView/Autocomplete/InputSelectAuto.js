@@ -4,6 +4,10 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 
 
 
@@ -46,95 +50,105 @@ class LocationSearchInput extends React.Component {
       
     return (
       <>
-        <PlacesAutocomplete
-          value={this.state.origin}
-          onSelect={this.handleSelect}
-          onChange={this.handleChange}
-          googleCallbackName="initOne"
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: "Indique origen",
-                  className: "location-search-input",
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map((suggestion) => {
-                  const className = suggestion.active
-                    ? "suggestion-item--active"
-                    : "suggestion-item";
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
+        <Container>
+          <Row>
+            <Col>
+              <h3>Origen:</h3>
+              <PlacesAutocomplete
+                value={this.state.origin}
+                onSelect={this.handleSelect}
+                onChange={this.handleChange}
+                googleCallbackName="initOne"
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: "Indique origen",
+                        className: "location-search-input",
                       })}
-                    >
-                      <span>{suggestion.description}</span>
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion) => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                          : { backgroundColor: "#ffffff", cursor: "pointer" };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+            </Col>
 
-        <PlacesAutocomplete
-          value={this.state.destination}
-          onSelect={this.handleSelectDestination}
-          onChange={this.handleChangeDestination}
-          googleCallbackName="initTwo"
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: "Indique destino",
-                  className: "location-search-input",
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map((suggestion) => {
-                  const className = suggestion.active
-                    ? "suggestion-item--active"
-                    : "suggestion-item";
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
+            <Col>      
+              <h3>Destino:</h3>
+              <PlacesAutocomplete
+                value={this.state.destination}
+                onSelect={this.handleSelectDestination}
+                onChange={this.handleChangeDestination}
+                googleCallbackName="initTwo"
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: "Indique destino",
+                        className: "location-search-input",
                       })}
-                    >
-                      <span>{suggestion.description}</span>
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion) => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                          : { backgroundColor: "#ffffff", cursor: "pointer" };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+            </Col>  
+          </Row>
+        </Container>
       </>
     );
   }
