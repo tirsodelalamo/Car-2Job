@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SimpleMap from "./Map/Map";
 import LocationSearchInput from "./Autocomplete/InputSelectAuto";
+import DirectionRenderComponent from './DirectionRender/DirectionRender'
 
 class MapView extends Component {
   constructor() {
@@ -31,7 +32,9 @@ class MapView extends Component {
           Las coordenadas del destino son: Latitude: {this.state.destination.lat} Longitude: {this.state.destination.lng}
         </p>
         
-        <SimpleMap coordenates = {this.state}/>
+        <SimpleMap coordenates={this.state} />
+        
+        <DirectionRenderComponent coordenates={this.state}/>
       </>
     );
   }
