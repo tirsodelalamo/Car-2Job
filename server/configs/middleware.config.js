@@ -4,11 +4,18 @@ const logger = require('morgan')
 
 const cors = require('cors')
 
-const whitelist = [process.env.DOMAIN, "https://car-two-go.herokuapp.com/", "http://localhost:3000"];
+const whitelist = [
+  process.env.DOMAIN,
+  "https://car-two-go.herokuapp.com/",
+   "http://localhost:3000",
+  "http://localhost:5000",
+  "http://localhost:5000/api/mapa/nuevaRuta",
+];
 const corsOptions = {
     origin: (origin, cb) => {
         const originIsWhitelisted = whitelist.includes(origin)
         cb(null, originIsWhitelisted)
+        console.log("Entro")
     },
     credentials: true
 }

@@ -6,7 +6,7 @@ export default class MapService {
 
         this.service = axios.create({
 
-            baseURL: 'http://localhost:5000/api/mapa', //CAMBIAR PARA DEPLOY
+            baseURL: `${process.env.REACT_APP_API_URL}/mapa`, //CAMBIAR PARA DEPLOY
             withCredentials: true
         })
     }

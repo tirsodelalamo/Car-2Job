@@ -20,12 +20,12 @@ router.get('/detalleRuta/:id', checkAuth, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/nuevaRuta', checkAuth, (req, res, next) => {
-
-    Travel.create(req.body)
-        .then(response => res.json(response))
-        .catch(err => next(err))
-})
+router.post("/nuevaRuta", checkAuth, (req, res, next) => {
+  console.log("Hola Elena", req.body);
+  Travel.create(req.body)
+    .then((response) => console.log(response))
+    .catch((err) => next(err));
+});
 
 router.delete('/detalleRuta/:id/delete', checkAuth, (req, res, next) => {
 

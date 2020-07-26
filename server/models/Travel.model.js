@@ -10,10 +10,10 @@ const travelSchema = new Schema({
         type: String
     },
     travelTime: {
-        type: Number
+        type: String
     },
     distance: {
-        type: Number
+        type: String
     },
     arrivalTime: {
         type: String
