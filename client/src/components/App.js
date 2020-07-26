@@ -6,13 +6,14 @@ import AuthService from './../service/AuthService'
 
 import Navigation from './Navbar/NavBar'
 import MapView from './Pages/MapView/MapView'
-import DriverView from './Pages/DriverView/DriverView'
+import TravelList from './Pages/Travel/index'
 import ProfileView from './Pages/Profile/Profile'
 import Home from './Pages/Home/Home'
 import Login from './Auth/LogIn/Login'
 import UserForm from './Auth/UserForm/UserForm'
 
 import { Switch, Route, Redirect } from "react-router-dom"
+import TravelDetail from './Pages/Travel/TravelDetail/TravelDetail'
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
     this.setState({ loggedInUser: user }, () =>
       console.log("Cambio en el estado:", this.state)
     )
+
   
   fetchUser = () => {
     this.AuthService.isLoggedIn()
@@ -48,6 +50,7 @@ class App extends Component {
         <Navigation
           setTheUser={this.setTheUser}
           loggedInUser={this.state.loggedInUser}
+          
         />
 
         <Switch>
@@ -65,11 +68,12 @@ class App extends Component {
             )}
           />
           <Route path="/mapa" render={props => this.state.loggedInUser ? <MapView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> :  <Redirect to="/login" />}/>
-          <Route path="/conductor" render={() => <DriverView />} />
+          <Route path="/lista-viajes" render={() => <TravelList loggedInUser={this.state.loggedInUser}/>} />
+          <Route path="/detalleRuta/:id" render={props => <TravelDetail loggedInUser={this.state.loggedInUser} {...props}/>} />
           <Route
             path="/perfil"
             render= { props =>
-              this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> :
+              this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props} />  :
                 <Redirect to="/login" />}
           />
           <Route path='/profile/:id/edit' render = {props => this.state.loggedInUser ? <UserForm loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> : <Redirect to = '/login' />} ></Route>

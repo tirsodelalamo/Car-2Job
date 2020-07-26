@@ -28,7 +28,7 @@ class Navigation extends Component {
 
     render() {
       
-      //console.log(this.props)
+      console.log("ESTAS SON LAS PROPS DEL NAV", this.props)
         
         return (
           <>
@@ -52,14 +52,14 @@ class Navigation extends Component {
                         : null}
                         {this.props.loggedInUser.role === "Conductor" ?
                         <Nav.Link as="span">
-                          <NavLink to="/conductor" activeStyle={{ color: 'white' }}>Vista conductor</NavLink>
+                          <NavLink to="/lista-viajes" activeStyle={{ color: 'white' }}>Vista conductor</NavLink>
                         </Nav.Link>
                         : null}
                         <Nav.Link as="span">
                           <NavLink to="/perfil" activeStyle={{ color: 'white' }}>Perfil</NavLink>
                         </Nav.Link>
                         <Nav.Link as="span">
-                          <span onClick={this.logout}>Cerrar Sesión</span>
+                          <NavLink to = "/" ><span onClick={this.logout}>Cerrar Sesión</span></NavLink>
                         </Nav.Link>
                       </>
                     ) : (

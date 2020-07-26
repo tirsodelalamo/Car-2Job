@@ -25,6 +25,14 @@ class Map extends Component {
       zoom: 14,
       directions: null,
       arrivalTime: "",
+      origin: "",
+      destination: "",
+      travelTime: "",
+      distance: "",
+      price: "",
+      owner: props.coordenates.owner
+
+
     };
     this.mapService = new MapService();
   }
@@ -45,8 +53,14 @@ class Map extends Component {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
             directions: result,
+            origin: result.routes[0].legs[0].start_address,
+            destination: result.routes[0].legs[0].end_address,
+            travelTime: result.routes[0].legs[0].duration.text,
+            distance: result.routes[0].legs[0].distance.text,
+            price: (result.routes[0].legs[0].distance.value *
+            0.0001
+          ).toFixed(2)       
           });
-          console.log("PERO MIRA ESTO!!!!!", this.state);
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -56,7 +70,7 @@ class Map extends Component {
 
   updateUserState = (data) => {
     this.setState({
-      arrivalTime: data.arrivalTime || ""
+      arrivalTime: data.arrivalTime || "",
     });
   };
 
@@ -69,14 +83,13 @@ class Map extends Component {
     e.preventDefault()
     this.mapService
         .createTravel(this.state)
-        .then(() => this.props.history.push('/perfil'))
+        .then(() => this.props.originalProps.history.push('/perfil'))
         .catch(err => console.log(err))
   }
 
   render() {
-    console.log("ESTADO DEL HIJO", this.state);
-    console.log("PROPS DEL HIJO", this.props.coordenates.owner);
-    const GoogleMapExample = withGoogleMap((props) => (
+    console.log("Estas son las this.props del hijo", this.props)
+    const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         center={
           this.props.coordenates.origin.lat
@@ -138,105 +151,26 @@ class Map extends Component {
             </Col>
           </Row>
         </Container>
-        <h2>FORMULARIO SUPERSECRETO</h2>
-
-        {this.state.directions ? (
-          <Form onSubmit={this.handleFormSubmit}>
-            <Form.Group>
-              <Form.Label>Origen</Form.Label>
-              <Form.Control
-                value={this.state.directions.routes[0].legs[0].start_address}
-                name="origin"
-                type="text"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Destino</Form.Label>
-              <Form.Control
-                value={this.state.directions.routes[0].legs[0].end_address}
-                name="destination"
-                type="text"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Tiempo de Viaje</Form.Label>
-              <Form.Control
-                value={this.state.directions.routes[0].legs[0].duration.text}
-                name="travelTime"
-                type="text"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Distancia</Form.Label>
-              <Form.Control
-                value={this.state.directions.routes[0].legs[0].distance.text}
-                name="distance"
-                type="text"
-              />
-            </Form.Group>
+         {this.state.directions ? (
+          <Form onSubmit={this.handleFormSubmit}>            
             <Form.Group>
               <Form.Label>Introduce la hora y el día de llegada</Form.Label>
               <Form.Control
                 onChange={this.handleInputChange}
-                placeholder="Día, Mes, Hora"
+                placeholder="Ejemplo: Día 10 de Agosto 2020 a las 15.00"
                 value={this.state.arrivalTime}
                 name="arrivalTime"
                 type="text"
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Precio</Form.Label>
-              <Form.Control
-                value={(
-                  this.state.directions.routes[0].legs[0].distance.value *
-                  0.0001
-                ).toFixed(2)}
-                name="price"
-                type="number"
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Id Usuario </Form.Label>
-              <Form.Control
-                value={this.props.coordenates.owner}
-                name="owner"
-                type="text"
-              />
-            </Form.Group>
+            
             <Button variant="dark" type="submit">Crear ruta</Button>
           </Form>
         ) : null}
-      </div>
-    );
+        </div>
+
+    )
   }
 }
 
 export default Map;
-
-// origin: {
-//         type: String
-//     },
-//     destination: {
-//         type: String
-//     },
-//     travelTime: {
-//         type: Number
-//     },
-//     distance: {
-//         type: Number
-//     },
-//     arrivalTime: {
-//         type: String
-//     },
-//     price: {
-//         type: Number
-//     },
-//     owner: {
-//         type: mongoose.ObjectId,
-//         ref: "User"
-//     },
-//     status: {
-//         type: String,
-//         enum: ['Pendiente', 'En proceso', 'Confirmado'],
-//         default: "Pendiente"
-//     }
