@@ -16,11 +16,11 @@ class MapView extends Component {
 
   setCoordsOrigin = (coords) => this.setState({ origin: coords });
   setCoordsDestination = (coords) => this.setState({ destination: coords });
-  
-
 
   render() {
+
     const MapLoader = withScriptjs(SimpleMap)
+
     return (
       <>
         <div className= "container">
@@ -29,7 +29,7 @@ class MapView extends Component {
             setCoordsOrigin={this.setCoordsOrigin}
             setCoordsDestination={this.setCoordsDestination}
           />
-          <MapLoader coordenates = {this.state} googleMapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBf8Nlxiwn7uJlN9-H0TWIqQMxIm527UHc" 
+          <MapLoader originalProps = {this.props} coordenates = {this.state} googleMapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBf8Nlxiwn7uJlN9-H0TWIqQMxIm527UHc" 
           loadingElement={<div style={{ height: `100%` }} />}
           />
         </div>

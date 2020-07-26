@@ -3,6 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Link } from 'react-router-dom'
 import './Profile.css'
 
+import CardDrawer from '../Travel/CardDrawer/CardDrawer'
+import MapService from '../../../service/MapService'
+
+
 class ProfileView extends Component {
 
     constructor(props) {
@@ -14,13 +18,26 @@ class ProfileView extends Component {
           email: '',
           phone: '',
           role: '',
-          imageUrl: ''
+          imageUrl: '',
+          travels: ""
         };
+        this.mapService = new MapService()
     }
-    
+
+  componentDidMount = () => this.updateTravelList()
+
+  updateTravelList = () => this.getProfileUserTravels(this.props.loggedInUser._id)
+
+  getProfileUserTravels = id => {
+    this.mapService.
+        getAllTravelsFromUser(id)
+        .then(response => this.setState({ travels: response.data }))
+        .catch(err => console.log(err))
+  }
+  
+     
     render() {
       
-        console.log(this.props)
         return (
           <>
             <div className="container">
@@ -32,13 +49,13 @@ class ProfileView extends Component {
                 <div className="col-6">
                   <h2>Datos de Usuario</h2>
                   <hr></hr>
-                  <p>Nombre de Usuario: {this.props.loggedInUser.username}</p>
-                  <p>Nombre: {this.props.loggedInUser.name}</p>
-                  <p>Apellido: {this.props.loggedInUser.lastName}</p>
-                  <p>Correo electrónico: {this.props.loggedInUser.email}</p>
-                  <p>Teléfono: {this.props.loggedInUser.phone}</p>
-                  <p>Tipo de cuenta: {this.props.loggedInUser.role}</p>
-                  <p>Cartera: {this.props.loggedInUser.pocket}€</p>
+                  <p><strong>Nombre de Usuario:</strong> {this.props.loggedInUser.username}</p>
+                  <p><strong>Nombre:</strong> {this.props.loggedInUser.name}</p>
+                  <p><strong>Apellido:</strong> {this.props.loggedInUser.lastName}</p>
+                  <p><strong>Correo electrónico:</strong> {this.props.loggedInUser.email}</p>
+                  <p><strong>Teléfono:</strong> {this.props.loggedInUser.phone}</p>
+                  <p><strong>Tipo de cuenta:</strong> {this.props.loggedInUser.role}</p>
+                  <p><strong>Cartera:</strong> {this.props.loggedInUser.pocket}€</p>
                   <Link
                     to={`profile/${this.props.loggedInUser._id}/edit`}
                     className="btn btn-dark btn-sm"
@@ -51,6 +68,7 @@ class ProfileView extends Component {
 
             <div className="container">
               <h3>Tus rutas:</h3>
+              <CardDrawer travels = {this.state.travels} loggedInUser={this.props.loggedInUser} {...this.props}/>
             </div>
           </>
         );

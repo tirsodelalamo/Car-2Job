@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     pocket: {
         type: Number,
-        default: 0
+        default: 100
     },
     vehicle: {
         type: mongoose.ObjectId,

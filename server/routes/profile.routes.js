@@ -24,10 +24,6 @@ router.put('/:id/edit', checkAuth, (req, res, next) => {
       imageUrl
     } = req.body
 
-    console.log('Entra el back')
-
-    
-
     User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl}, {new: true})
       .then((user) => res.json(user))
       .catch((err) => console.log(err))      

@@ -6,6 +6,7 @@ import {
   GoogleMap,
   DirectionsRenderer
 } from "react-google-maps";
+import MapService from '../../../../service/MapService'
 
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -14,14 +15,27 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 class Map extends Component {
-  state = {
-    center: {
-      lat: 40.3925046,
-      lng: -3.700465,
-    },
-    zoom: 14,
-    directions: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      center: {
+        lat: 40.3925046,
+        lng: -3.700465,
+      },
+      zoom: 14,
+      directions: null,
+      arrivalTime: "",
+      origin: "",
+      destination: "",
+      travelTime: "",
+      distance: "",
+      price: "",
+      owner: props.coordenates.owner
+
+
+    };
+    this.mapService = new MapService();
+  }
 
   componentDidMount() {
     const directionsService = new google.maps.DirectionsService();
@@ -38,10 +52,15 @@ class Map extends Component {
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
-            directions: result
-            
+            directions: result,
+            origin: result.routes[0].legs[0].start_address,
+            destination: result.routes[0].legs[0].end_address,
+            travelTime: result.routes[0].legs[0].duration.text,
+            distance: result.routes[0].legs[0].distance.text,
+            price: (result.routes[0].legs[0].distance.value *
+            0.0001
+          ).toFixed(2)       
           });
-          console.log("PERO MIRA ESTO!!!!!",this.state)
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -49,9 +68,27 @@ class Map extends Component {
     );
   }
 
+  updateUserState = (data) => {
+    this.setState({
+      arrivalTime: data.arrivalTime || "",
+    });
+  };
+
+  handleInputChange = e => {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+  
+  handleFormSubmit = e => {
+    e.preventDefault()
+    this.mapService
+        .createTravel(this.state)
+        .then(() => this.props.originalProps.history.push('/perfil'))
+        .catch(err => console.log(err))
+  }
+
   render() {
-    console.log("ESTADO DEL HIJO",this.state)
-    console.log("PROPS DEL HIJO",this.props)
+    console.log("Estas son las this.props del hijo", this.props)
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         center={this.props.coordenates.origin.lat ? this.props.coordenates.origin : this.state.center}
@@ -65,47 +102,6 @@ class Map extends Component {
     
 
     return (
-<<<<<<< HEAD
-      <div style={{ height: "50vh", width: "100%" }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: "AIzaSyBf8Nlxiwn7uJlN9-H0TWIqQMxIm527UHc",
-          }}
-          center={
-            this.props.coordenates.origin.lat
-              ? this.props.coordenates.origin
-              : this.state.center
-          }
-          defaultZoom={this.state.zoom}
-        >
-          {this.props.coordenates.origin.lat ? (
-            <Marker
-              lat={this.props.coordenates.origin.lat}
-              lng={this.props.coordenates.origin.lng}
-              text="My Marker"
-            />
-          ) : null}
-
-          {this.props.coordenates.destination.lat ? (
-            <Marker
-              lat={this.props.coordenates.destination.lat}
-              lng={this.props.coordenates.destination.lng}
-              text="My Marker"
-            />
-          ) : null}
-          <Polyline
-            path={[
-              { lat: -36.73540441, lng: 144.25178598 },
-              { lat: -36.73590441, lng: 134.25178198 },
-            ]} //{[this.props.coordenates.origin, this.props.coordenates.destination]} //{pathCoordinates}
-            options={{
-              strokeColor: "#00ffff",
-              strokeOpacity: 0.7,
-              strokeWeight: 1,
-            }}
-          />
-        </GoogleMapReact>
-=======
       <div>
         <Container>
           <Row>
@@ -130,14 +126,26 @@ class Map extends Component {
             </Col>
           </Row>
         </Container>
->>>>>>> 054c462253394b19e5ca0ba1e9bb99f03b70533c
-      </div>
+         {this.state.directions ? (
+          <Form onSubmit={this.handleFormSubmit}>            
+            <Form.Group>
+              <Form.Label>Introduce la hora y el día de llegada</Form.Label>
+              <Form.Control
+                onChange={this.handleInputChange}
+                placeholder="Ejemplo: Día 10 de Agosto 2020 a las 15.00"
+                value={this.state.arrivalTime}
+                name="arrivalTime"
+                type="text"
+              />
+            </Form.Group>
+            
+            <Button variant="dark" type="submit">Crear ruta</Button>
+          </Form>
+        ) : null}
+        </div>
+
     )
   }
 }
 
-<<<<<<< HEAD
-export default SimpleMap;
-=======
 export default Map;
->>>>>>> 054c462253394b19e5ca0ba1e9bb99f03b70533c
