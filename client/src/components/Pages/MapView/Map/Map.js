@@ -14,6 +14,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import mapStyles from './MapStyles'
+
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -91,6 +93,9 @@ class Map extends Component {
     console.log("Estas son las this.props del hijo", this.props)
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
+        options={{
+          styles:  this.props.mapStyles 
+        }}
         center={
           this.props.coordenates.origin.lat
             ? this.props.coordenates.origin
@@ -172,5 +177,7 @@ class Map extends Component {
     )
   }
 }
+
+Map.defaultProps = mapStyles
 
 export default Map;
