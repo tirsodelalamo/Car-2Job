@@ -14,6 +14,8 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import mapStyles from './MapStyles'
+
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -89,8 +91,11 @@ class Map extends Component {
 
   render() {
     console.log("Estas son las this.props del hijo", this.props)
-    const GoogleMapExample = withGoogleMap(props => (
+    const GoogleMapExample = withGoogleMap((props) => (
       <GoogleMap
+        options={{
+          styles:  this.props.mapStyles 
+        }}
         center={
           this.props.coordenates.origin.lat
             ? this.props.coordenates.origin
@@ -121,23 +126,23 @@ class Map extends Component {
                     <h2>Detalles de ruta:</h2>
                     <hr></hr>
                     <p>
-                      <strong>Origen:</strong>
+                      <strong>Origen: </strong>
                       {this.state.directions.routes[0].legs[0].start_address}
                     </p>
                     <p>
-                      <strong>Destino:</strong>
+                      <strong>Destino: </strong>
                       {this.state.directions.routes[0].legs[0].end_address}
                     </p>
                     <p>
-                      <strong>Tiempo:</strong>
+                      <strong>Tiempo: </strong>
                       {this.state.directions.routes[0].legs[0].duration.text}
                     </p>
                     <p>
-                      <strong>Distancia:</strong>
+                      <strong>Distancia: </strong>
                       {this.state.directions.routes[0].legs[0].distance.text}
                     </p>
                     <p>
-                      <strong>El coste de la ruta es de:</strong>
+                      <strong>El coste de la ruta es de: </strong>
                       {(
                         this.state.directions.routes[0].legs[0].distance.value *
                         0.0001
@@ -151,10 +156,12 @@ class Map extends Component {
             </Col>
           </Row>
         </Container>
-         {this.state.directions ? (
-          <Form onSubmit={this.handleFormSubmit}>            
+        {this.state.directions ? (
+          <Form onSubmit={this.handleFormSubmit}>
             <Form.Group>
-              <Form.Label>Introduce la hora y el día de llegada</Form.Label>
+              <Form.Label>
+                <strong>Introduce la hora y el día de llegada</strong>
+              </Form.Label>
               <Form.Control
                 onChange={this.handleInputChange}
                 placeholder="Ejemplo: Día 10 de Agosto 2020 a las 15.00"
@@ -163,14 +170,17 @@ class Map extends Component {
                 type="text"
               />
             </Form.Group>
-            
-            <Button variant="dark" type="submit">Crear ruta</Button>
+
+            <Button variant="dark" type="submit">
+              Crear ruta
+            </Button>
           </Form>
         ) : null}
-        </div>
-
-    )
+      </div>
+    );
   }
 }
+
+Map.defaultProps = mapStyles
 
 export default Map;

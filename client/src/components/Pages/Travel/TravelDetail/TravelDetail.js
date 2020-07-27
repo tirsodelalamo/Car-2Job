@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import MapService from '../../../../service/MapService'
+import AuthService from '../../../../service/AuthService'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -17,7 +18,29 @@ class TravelDetails extends Component {
             travelDetails: undefined
         }
         this.mapService = new MapService()
+        // this.authService = new AuthService()
     }
+
+    // //MODIFICAR POCKET DE USER
+
+    // modifyPocket = () => {
+
+    //     //TERNARIO AUXILIAR PARA LLAMAR A ESTE MÉTODO ???
+    //     // {this.state.travelDetails.status === 'Confirmado'? this.modifyPocket : null}
+
+    //     const resultDriver = this.props.loggedInUser.pocket + this.state.travelDetails.price //SUMA EN POCKET USUARIO CONDUCTOR
+    //     // const resultUseer = this.state.travelDetails.owner.pocket - this.state.travelDetails.price //DESCUENTO EN POCKET USUARIO
+
+    //     const id = this.props.loggedInUser._id
+
+    //     this.authService
+    //       .editUser(id) //id,user
+    //       .then((response) => {
+    //         this.props.setTheUser(response.data)
+    //         this.props.history.push("/perfil")
+    //       })
+
+    // }
 
     componentDidMount = () => {
 
