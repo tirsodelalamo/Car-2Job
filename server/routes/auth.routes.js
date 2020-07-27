@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 router.post("/signup", (req, res, next) => {
 
-  const { username, password, name, lastName, email, phone, role, pocket } = req.body
+  const { username, password, name, lastName, email, phone, role, pocket, vehicle } = req.body
 
   if (!username || !password || !name || !email || !phone || !role) {
     res.status(400).json({ message: "Rellene todos los campos solicitados." });
@@ -46,7 +46,8 @@ router.post("/signup", (req, res, next) => {
       email: email,
       phone: phone,
       role: role,
-      pocket: pocket
+      pocket: pocket,
+      vehicle: vehicle
     });
 
     aNewUser.save((err) => {
