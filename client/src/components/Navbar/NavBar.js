@@ -27,8 +27,6 @@ class Navigation extends Component {
 
 
     render() {
-      
-      console.log("ESTAS SON LAS PROPS DEL NAV", this.props)
         
         return (
           <>
@@ -47,12 +45,12 @@ class Navigation extends Component {
                       <>
                         {this.props.loggedInUser.role === "Pasajero" ?
                         <Nav.Link as="span">
-                          <NavLink to="/mapa" activeStyle={{ color: 'white' }}>Vista usuario</NavLink>
+                          <NavLink to="/mapa" activeStyle={{ color: 'white' }}>Crea tu ruta</NavLink>
                         </Nav.Link>
                         : null}
                         {this.props.loggedInUser.role === "Conductor" ?
                         <Nav.Link as="span">
-                          <NavLink to="/lista-viajes" activeStyle={{ color: 'white' }}>Vista conductor</NavLink>
+                          <NavLink to="/lista-viajes" activeStyle={{ color: 'white' }}>Rutas</NavLink>
                         </Nav.Link>
                         : null}
                         <Nav.Link as="span">

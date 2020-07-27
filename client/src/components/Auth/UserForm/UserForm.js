@@ -20,7 +20,8 @@ class UserForm extends Component {
             email: '',
             phone: '',
             role: '',
-            imageUrl: ''
+            imageUrl: '',
+            // vehicle: {}
         }
         this.authService = new AuthService()
         this.filesService = new FilesService()    // CLOUDINARYCONFIG 
@@ -45,7 +46,8 @@ class UserForm extends Component {
             email: data.email || "",
             phone: data.phone || "",
             role: data.role,
-            imageUrl: data.imageUrl || ""            
+            imageUrl: data.imageUrl || "",
+            // vehicle: data.vehicle || ""            
         })
     }
 
@@ -91,6 +93,9 @@ class UserForm extends Component {
     }
 
     render() {
+
+        console.log("ESTADO", this.state)
+        console.log("PROOOPS", this.props)
         return (
             <Container as="main">
                 <Row>
@@ -124,7 +129,33 @@ class UserForm extends Component {
                             <Form.Group>
                                 <Form.Label>Teléfono Móvil *</Form.Label>
                                 <Form.Control onChange={this.handleInputChange} value={this.state.phone} name="phone" type="number" />
-                            </Form.Group> 
+                            </Form.Group>
+                            {/* <Form.Group>
+                                <Form.Label>Marca de coche </Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.vehicle.brand} name="brand" type="text" />
+                                <Form.Text className="text-muted">Completa este campo si dispones de un vehículo y/o quieres ejercer como conductor</Form.Text>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Modelo de coche </Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.vehicle.model} name="model" type="text" />
+                                <Form.Text className="text-muted">Completa este campo si dispones de un vehículo y/o quieres ejercer como conductor</Form.Text>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Matrícula de coche </Form.Label>
+                                <Form.Control onChange={this.handleInputChange} value={this.state.vehicle.plate} name="plate" type="string" />
+                                <Form.Text className="text-muted">Completa este campo si dispones de un vehículo y/o quieres ejercer como conductor</Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId="exampleForm.ControlSelect1">
+                                <Form.Label>Selecciona el combustible de tu vehículo</Form.Label>
+                                <Form.Control as="select" onChange={this.handleInputChange} value={this.state.vehicle.fuel} name="fuel" >
+                                    <option>Seleccione tipo de combustible</option>
+                                    <option>Diesel</option>
+                                    <option>Gasolina</option>
+                                    <option>Eléctrico</option>
+                                    <option>Híbrido</option>
+                                </Form.Control>
+                                <Form.Text className="text-muted">Completa este campo si dispones de un vehículo y/o quieres ejercer como conductor</Form.Text>
+                            </Form.Group>  */}
                             <Form.Group controlId="exampleForm.ControlSelect1">
                                 <Form.Label>Selecciona el tipo de cuenta que quieres *</Form.Label>
                                 <Form.Control as = "select" onChange={this.handleInputChange} value={this.state.role} name="role" >

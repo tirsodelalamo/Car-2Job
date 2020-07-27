@@ -25,6 +25,10 @@ const travelSchema = new Schema({
         type: mongoose.ObjectId,
         ref: "User"
     },
+    driver: {
+        type: mongoose.ObjectId,
+        ref: "User"
+    },
     status: {
         type: String,
         enum: ['Pendiente', 'En proceso', 'Confirmado'],

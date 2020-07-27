@@ -11,7 +11,8 @@ export default class AuthService {
     }
 
     login = credentials => this.service.post('/login', credentials)
-    editUser = (id, user) => this.service.put(`/profile/${id}/edit`, user) 
+    editUser = (id, user) => this.service.put(`/profile/${id}/edit`, user)
+    transferMoney = (id, pocket) => this.service.put(`/profile/detalleRuta/${id}/edit`, pocket) 
     getUser = (id) => this.service.get(`/profile/${id}/edit`)
     signUp = credentials => this.service.post('/signup', credentials)
     logout = () => this.service.post('/logout')

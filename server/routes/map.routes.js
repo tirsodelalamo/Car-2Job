@@ -24,13 +24,26 @@ router.get('/detalleRuta/:id', checkAuth, (req, res, next) => {
 
     Travel.findById(req.params.id)
         .populate("owner")
+        .populate("driver")
         .then(response => res.json(response))
         .catch(err => next(err))
 })
 
 router.put('/detalleRuta/:id/edit', checkAuth, (req, res, next) => {
     
-    Travel.findByIdAndUpdate(req.params.id, {status: "En proceso"}, {new: true})
+    let statusProcessed = ""
+
+    if(req.body.statusDetail === "Aceptar") {
+        statusProcessed = {status: 'En proceso', driver: req.body.driver}
+
+    } else if (req.body.statusDetail === "Rechazar") {
+        statusProcessed = {status: 'Pendiente', driver: undefined}
+
+    } else {
+        statusProcessed = {status: 'Confirmado'}
+    }
+
+    Travel.findByIdAndUpdate(req.params.id, statusProcessed, {new: true})
       .then((travel) => res.json(travel))
       .catch((err) => console.log(err))      
 })

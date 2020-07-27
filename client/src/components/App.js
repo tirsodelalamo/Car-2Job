@@ -69,12 +69,12 @@ class App extends Component {
           />
           <Route path="/mapa" render={props => this.state.loggedInUser ? <MapView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> :  <Redirect to="/login" />}/>
           <Route path="/lista-viajes" render={() => <TravelList loggedInUser={this.state.loggedInUser}/>} />
-          <Route path="/detalleRuta/:id" render={props => <TravelDetail loggedInUser={this.state.loggedInUser} {...props}/>} />
+          <Route path="/detalleRuta/:id" render={props => <TravelDetail loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/>} />
           <Route
             path="/perfil"
             render= { props =>
               this.state.loggedInUser ? <ProfileView loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props} />  :
-                <Redirect to="/login" />}
+                <Redirect to="/" />}
           />
           <Route path='/profile/:id/edit' render = {props => this.state.loggedInUser ? <UserForm loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> : <Redirect to = '/login' />} ></Route>
         </Switch>
