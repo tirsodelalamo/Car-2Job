@@ -5,7 +5,12 @@ const User = require("../models/User.model")
 const Vehicle = require("../models/Car.model")
 const checkAuth = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
 
+router.post('/nuevo-vehiculo', (req, res, next) => {
 
+    Vehicle.create(req.body)
+      .then((response) => res.json(response))
+      .catch((err) => console.log(err));
+})
 
 router.put('/detalleRuta/:id/edit', checkAuth, (req, res, next) => {
 
@@ -48,15 +53,6 @@ router.put('/:id/edit', checkAuth, (req, res, next) => {
       .catch((err) => console.log(err))      
 })
 
-
-router.post('/nuevoVehiculo'), (req, res, next) => {
-
-  console.log('Ya estoy aqui')
-
-    Vehicle.create(req.body)
-      .then((response) => res.json(response))
-      .catch((err) => next(err));
-}
 
 
 module.exports = router

@@ -17,7 +17,7 @@ export default class AuthService {
     signUp = credentials => this.service.post('/signup', credentials)
     logout = () => this.service.post('/logout')
     isLoggedIn = () => this.service.get('/loggedin')
-    createVehicle = vehicle => this.service.post('/profile/nuevoVehiculo', vehicle)
+    createVehicle = vehicle => this.service.post('/profile/nuevo-vehiculo', vehicle)
   
 
 }
