@@ -2,7 +2,10 @@ const express = require("express")
 const router = express.Router()
 
 const User = require("../models/User.model")
+const Vehicle = require("../models/Car.model")
 const checkAuth = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
+
+
 
 router.put('/detalleRuta/:id/edit', checkAuth, (req, res, next) => {
 
@@ -37,21 +40,23 @@ router.put('/:id/edit', checkAuth, (req, res, next) => {
       phone,
       role,
       imageUrl,
-<<<<<<< HEAD
       pocket
     } = req.body
 
     User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl, pocket}, {new: true})
-=======
-      vehicle
-    } = req.body
-
-    User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl, vehicle}, {new: true})
->>>>>>> 8940a831cfdd3abb547e9c168b202660de0ff7e6
       .then((user) => res.json(user))
       .catch((err) => console.log(err))      
 })
 
+
+router.post('/nuevoVehiculo'), (req, res, next) => {
+
+  console.log('Ya estoy aqui')
+
+    Vehicle.create(req.body)
+      .then((response) => res.json(response))
+      .catch((err) => next(err));
+}
 
 
 module.exports = router
