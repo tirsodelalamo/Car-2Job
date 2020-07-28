@@ -35,10 +35,10 @@ class TravelList extends Component {
             <>
                 <Container as="main" className="coasters-page">
 
-                    <h1>LISTADO DE RUTAS</h1>
-
-                    <CardDrawer travels = {this.state.travels}/>
-
+                    <h1>Pasajeros Disponibles</h1>
+                    {this.state.travels && 
+                    <CardDrawer travels = {this.state.travels.filter(elm => elm.owner._id !== this.props.loggedInUser._id)}/>
+                    }
                 </Container>
             </>
         )

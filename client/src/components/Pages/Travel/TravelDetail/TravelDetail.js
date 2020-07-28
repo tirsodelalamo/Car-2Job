@@ -54,16 +54,12 @@ class TravelDetails extends Component {
         const driverId = this.state.travelDetails.driver._id
         const travelId = this.props.match.params.id
 
-        console.log("ENTRA EN EL MODIFYPOCKET")
-
 
         if (this.state.travelDetails.owner.pocket < this.state.travelDetails.price) {
 
             console.log("No tienes dinero")
          
         } else {
-
-            console.log("SE COBRA AQUIIIIIIIIIIIIIIIIIIIIII")
             
             this.setState(prevState => ({
             travelDetails: {
@@ -103,8 +99,6 @@ class TravelDetails extends Component {
     modifyTravel = () => {
 
         const travelId = this.props.match.params.id
-
-        console.log("ENTRA EN EL MODIFYTRAVEL")
 
         this.mapService
         .updateTravel(travelId, this.state)
@@ -149,7 +143,6 @@ class TravelDetails extends Component {
 
     render() {
 
-        console.log("STATE", this.state)
         this.state.statusDetail && this.checkStatus()
         return (
 
@@ -173,10 +166,20 @@ class TravelDetails extends Component {
                             
                         </Col>
                         <Col md={{ span: 4, offset: 1 }}>
-                            <h2>DETALLE DE USUARIO</h2>
+                            <h2>Información del pasajero</h2>
                             <img className="avatarClass" src={this.state.travelDetails.owner.imageUrl} alt={this.state.travelDetails.owner.username}></img>
                             <p><b>Nombre:</b>{this.state.travelDetails.owner.name}</p>
+                            
                             <hr></hr>
+                            {this.state.travelDetails.driver &&
+                            <div>
+                                <h2>Información del conductor:</h2>
+                                <img className="avatarClass" src={this.state.travelDetails.driver.imageUrl} alt={this.state.travelDetails.driver.username}></img>
+                                <p><b>Nombre:</b>{this.state.travelDetails.driver.name}</p>
+                                <p><b>Móvil:</b>{this.state.travelDetails.driver.phone}</p>
+                                <p><b>Correo Electrónico:</b>{this.state.travelDetails.driver.email}</p>
+                            </div>
+                            }
 
                             
                         </Col>
@@ -192,7 +195,7 @@ class TravelDetails extends Component {
                                 {!this.state.travelDetails.status.includes("Confirmado") &&
                                 <Button onClick={this.deleteCard} variant="outline-dark" type="submit">Borrar</Button> 
                                 }
-                                {this.state.travelDetails.status.includes("En proceso") &&
+                                {this.state.travelDetails.status.includes("En proceso") && 
                                 <div>
                                     <Button as="input" onClick={this.changeStatus} variant="outline-success" name="statusDetail" type="submit" value = "Confirmar"/>
                                     <Button as="input" onClick={this.changeStatus} variant="outline-danger" name="statusDetail" type="submit" value = "Rechazar"/>
@@ -201,8 +204,16 @@ class TravelDetails extends Component {
                         :
                             
                             <div>
-                                <Link className="btn btn-outline-dark btn-md" to='/lista-viajes'>Volver</Link>
-                                <Button as="input" onClick={this.changeStatus} variant="outline-success" name="statusDetail" type="submit" value='Aceptar'/> 
+                                
+                                {this.state.travelDetails.status === "Pendiente" ?
+                                <div>
+                                    <Link className="btn btn-outline-dark btn-md" to='/lista-viajes'>Volver</Link>
+                                    <Button as="input" onClick={this.changeStatus} variant="outline-success" name="statusDetail" type="submit" value='Aceptar'/> 
+                                </div>
+                                :
+                                    <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
+                                }
+                                
                             </div>
                         }
                     </Row>

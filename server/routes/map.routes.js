@@ -13,9 +13,16 @@ router.get('/lista-viajes', checkAuth, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get('/perfil/:usuarioId/rutas', checkAuth, (req, res, next) => {
+router.get('/perfil/:usuarioId/rutasPasajero', checkAuth, (req, res, next) => {
 
     Travel.find({owner: req.params.usuarioId})
+        .then(response => res.json(response))
+        .catch(err => next(err))
+})
+
+router.get('/perfil/:usuarioId/rutasConductor', checkAuth, (req, res, next) => {
+
+    Travel.find({driver: req.params.usuarioId})
         .then(response => res.json(response))
         .catch(err => next(err))
 })
