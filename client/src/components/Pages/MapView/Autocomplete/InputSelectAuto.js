@@ -14,39 +14,50 @@ import Col from 'react-bootstrap/Col'
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { origin: {}, destination: {} };
+    this.state = { 
+      origin: "", 
+      destination: "",
+      originCoordenates: "",
+      destinationCoordenates: ""
+    };
   }
-    
-  
 
-  handleChange = (origin) => {
-    this.setState({ origin });
+  handleChangeOrigin = (origin) => {
+    this.setState({ origin});
   };
 
   handleChangeDestination = (destination) => {
     this.setState({ destination });
   };
 
-  handleSelect = (origin) => {
-    geocodeByAddress(origin)
-      //.then(origin => this.setState({origin: origin[0].formatted_address}))
-      .then((results) => (getLatLng(results[0]))) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
-      .then((latLng) => this.setState({origin: latLng}))
-      .then(() => this.props.setCoordsOrigin(this.state.origin))
-      .catch((error) => console.error("Error", error))
+  handleSelectOrigin = (origin) => {
+    this.setState({origin: origin}, this.coordenatesOriginGenerator(origin))
+
   };
 
+  coordenatesOriginGenerator = (arg) => {
+    geocodeByAddress(arg)
+      .then((results) => (getLatLng(results[0])))
+      .then((latLng) => this.setState({originCoordenates: latLng}))
+      .then(() => this.props.setCoordsOrigin(this.state.originCoordenates))
+      .catch((error) => console.error("Error", error))
+  }
 
   handleSelectDestination = (destination) => {
-    geocodeByAddress(destination)
-      .then((results) => (getLatLng(results[0]))) //OBTENCIÓN DE LAT Y LNG DE DIRECCIÓN INTRODUCIDA
-      .then((latLng) => this.setState({destination: latLng}))
-      .then(() => this.props.setCoordsDestination(this.state.destination))
-      .catch((error) => console.error("Error", error))
+    this.setState({destination: destination}, this.coordenatesDestinationGenerator(destination))
+
   };
 
+  coordenatesDestinationGenerator = (arg) => {
+    geocodeByAddress(arg)
+      .then((results) => (getLatLng(results[0])))
+      .then((latLng) => this.setState({destinationCoordenates: latLng}))
+      .then(() => this.props.setCoordsDestination(this.state.destinationCoordenates))
+      .catch((error) => console.error("Error", error))
+  }
+
   render() {
-      console.log(this.state)
+      console.log("ESTE ES EL ESTADO DEL AUTOCOMPLETE",this.state)
       
     return (
       <>
@@ -56,8 +67,8 @@ class LocationSearchInput extends React.Component {
               <h3>Origen:</h3>
               <PlacesAutocomplete
                 value={this.state.origin}
-                onSelect={this.handleSelect}
-                onChange={this.handleChange}
+                onSelect={this.handleSelectOrigin}
+                onChange={this.handleChangeOrigin}
                 googleCallbackName="initOne"
               >
                 {({

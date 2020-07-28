@@ -15,8 +15,9 @@ export default class MapService {
     getOneTravel = id => this.service.get(`/detalleRuta/${id}`)
     createTravel = travel => this.service.post(`/mapa/nuevaRuta`, travel)
     deleteTravel = id => this.service.delete(`/detalleRuta/${id}/delete`)
-    updateTravel = (id, travel, x) => this.service.put(`/detalleRuta/${id}/edit`, travel)
-    getAllTravelsFromUser = id => this.service.get(`/perfil/${id}/rutas`)
+    updateTravel = (id, travel) => this.service.put(`/detalleRuta/${id}/edit`, travel)
+    getProfileUserTravels = id => this.service.get(`/perfil/${id}/rutasPasajero`)
+    getProfileDriverTravels = id => this.service.get(`/perfil/${id}/rutasConductor`)
 
 
 }

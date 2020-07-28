@@ -7,13 +7,16 @@ import CardDrawer from '../Travel/CardDrawer/CardDrawer'
 import MapService from '../../../service/MapService'
 import AuthService from '../../../service/AuthService'
 
+import Button from 'react-bootstrap/Button'
+
 
 class ProfileView extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-          travels: [],
+          ownerTravels: [],
+          driverTravels:[],
           username: "",
           name: "",
           lastName: "",
@@ -22,7 +25,9 @@ class ProfileView extends Component {
           role: "",
           imageUrl: "",
           vehicle: "",
-          pocket: 0
+          pocket: 0,
+          myTravelsStatus: "",
+          driverTravelsStatus: ""
         };
         this.mapService = new MapService()
         this.authService = new AuthService()
@@ -42,18 +47,18 @@ class ProfileView extends Component {
   updateTravelList = () => this.getProfileUserTravels(this.props.loggedInUser._id)
 
   getProfileUserTravels = id => {
+
     this.mapService.
-      getAllTravelsFromUser(id)
-        .then(response => this.setState({ travels: response.data }))
+      getProfileUserTravels(id)
+        .then(response => this.setState({ ownerTravels: response.data }))
+        .catch(err => console.log(err))
+
+    this.mapService.
+      getProfileDriverTravels(id)
+        .then(response => this.setState({ driverTravels: response.data }))
         .catch(err => console.log(err))
   }
 
-  // getProfileData = id => {
-  //   this.authService.
-  //     getUser(id)
-  //       .then(res => this.updateUserState(res.data))
-  //       .catch(err => console.log(err))
-  // }
 
   updateUserState = data => {
 
@@ -69,6 +74,12 @@ class ProfileView extends Component {
       pocket: data.pocket || 0
     })
 
+  }
+
+  changeStatus = (e) => {
+
+    const { name, value } = e.target
+    this.setState({ [name]: value } ) 
   }
   
      
@@ -107,17 +118,40 @@ class ProfileView extends Component {
             </div>
 
             <div className="container">
-              
-              {this.state.travels.length > 0 && 
-                <div>
-                <h3>Rutas pendientes de ser aceptadas:</h3>
-                <CardDrawer travels = {this.state.travels.filter(elm => elm.status === "Pendiente")} loggedInUser={this.props.loggedInUser} {...this.props}/>
-                <h3>Rutas aceptadas por conductor:</h3>
-                <CardDrawer travels = {this.state.travels.filter(elm => elm.status === "En proceso")} loggedInUser={this.props.loggedInUser} {...this.props}/>
-                <h3>Rutas confirmadas por ti y por el conductor:</h3>
-                <CardDrawer travels = {this.state.travels.filter(elm => elm.status === "Confirmado")} loggedInUser={this.props.loggedInUser} {...this.props}/>
+              <div className="row">
+                <div className="col-6">
+                  <h2>Rutas Conductor</h2>
+                  {this.state.driverTravels.length > 0 ?
+                    <div>
+                      <Button as="input" onClick={this.changeStatus} variant="warning" active name="driverTravelsStatus" type="submit" value = "En proceso"/>
+                      <Button as="input" onClick={this.changeStatus} variant="success" active name="driverTravelsStatus" type="submit" value = "Confirmadas"/>
+                      {this.state.driverTravelsStatus === "En proceso" &&
+                      <CardDrawer travels = {this.state.driverTravels.filter(elm => elm.status === "En proceso")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
+                      {this.state.driverTravelsStatus === "Confirmadas" &&
+                      <CardDrawer travels = {this.state.driverTravels.filter(elm => elm.status === "Confirmado")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
+                    </div>
+                  :
+                  <p>No hay datos que mostrar</p>
+                  }
                 </div>
-              }
+                <div className="col-6">
+                  <h2>Mis Rutas</h2>
+                  {this.state.ownerTravels.length > 0 ?
+                    <div>
+                      <Button as="input" onClick={this.changeStatus} variant="primary" active name="myTravelsStatus" type="submit" value = "Pendientes"/>
+                      <Button as="input" onClick={this.changeStatus} variant="warning" active name="myTravelsStatus" type="submit" value = "En proceso"/>
+                      <Button as="input" onClick={this.changeStatus} variant="success" active name="myTravelsStatus" type="submit" value = "Confirmadas"/>
+                      {this.state.myTravelsStatus === "Pendientes" &&
+                        <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "Pendiente")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
+                      {this.state.myTravelsStatus === "En proceso" &&
+                        <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "En proceso")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
+                      {this.state.myTravelsStatus === "Confirmadas" &&
+                        <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "Confirmado")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
+                    </div>
+                  :
+                  <p>No hay datos que mostrar</p>}
+                </div>
+              </div>
             </div>
           </>
         );

@@ -37,17 +37,10 @@ router.put('/:id/edit', checkAuth, (req, res, next) => {
       phone,
       role,
       imageUrl,
-<<<<<<< HEAD
-      pocket
+ 
     } = req.body
 
-    User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl, pocket}, {new: true})
-=======
-      vehicle
-    } = req.body
-
-    User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl, vehicle}, {new: true})
->>>>>>> 8940a831cfdd3abb547e9c168b202660de0ff7e6
+    User.findByIdAndUpdate(req.params.id, {username, name, lastName, email, phone, role, imageUrl}, {new: true})
       .then((user) => res.json(user))
       .catch((err) => console.log(err))      
 })
