@@ -8,6 +8,7 @@ module.exports = app => {
     // CLOUDINARYCONFIG 
     app.use('/api/files', require('./files.routes'))
 
+    //DEPLOY
     app.use((req, res) => {
      res.sendFile(__dirname + "/public/index.html");
     });

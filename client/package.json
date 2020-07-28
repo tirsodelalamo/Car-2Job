@@ -21,7 +21,8 @@
     "react-places-autocomplete": "^7.3.0",
     "react-polyline": "^1.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "socket.io-client": "^2.3.0"
   },
   "scripts": {
     "start": "dotenv -e .env.dev react-scripts start",
