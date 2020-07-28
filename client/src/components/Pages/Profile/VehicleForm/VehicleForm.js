@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button";
 import AuthService from "../../../../service/AuthService";
 
 class VehicleForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       brand: "",
       model: "",
@@ -24,10 +24,14 @@ class VehicleForm extends Component {
   handleFormSubmit = (e) => {
       e.preventDefault();
       console.log(this.state)
+      console.log("PROOOOOOOOOOOOOPS", this.props)
+      const id = this.props.usuario.loggedInUser._id
+
     this.authService
-      .createVehicle(this.state)
-      .then(() => this.props.originalProps.history.push("/perfil"))
+      .createVehicle(id, this.state)
+      .then(() => this.props.usuario.history.push("/perfil"))
       .catch((err) => console.log(err));
+
   };
 
   render() {

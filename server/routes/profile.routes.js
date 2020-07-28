@@ -2,13 +2,16 @@ const express = require("express")
 const router = express.Router()
 
 const User = require("../models/User.model")
-const Vehicle = require("../models/Car.model")
+const Car = require("../models/Car.model")
+
 const checkAuth = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login')
 
-router.post('/nuevo-vehiculo', (req, res, next) => {
+router.post('/:id/nuevo-vehiculo', (req, res, next) => {
 
-    Vehicle.create(req.body)
-      .then((response) => res.json(response))
+    Car.create(req.body)
+      .then(vehicle => 
+        User.findByIdAndUpdate(req.params.id, {vehicle: vehicle._id}, {new: true}))
+        .then(response => res.json(response))
       .catch((err) => console.log(err));
 })
 
@@ -52,7 +55,6 @@ router.put('/:id/edit', checkAuth, (req, res, next) => {
       .then((user) => res.json(user))
       .catch((err) => console.log(err))      
 })
-
 
 
 module.exports = router

@@ -15,6 +15,7 @@ import UserForm from './Auth/UserForm/UserForm'
 
 import { Switch, Route, Redirect } from "react-router-dom"
 import TravelDetail from './Pages/Travel/TravelDetail/TravelDetail'
+import VehicleForm from './Pages/Profile/VehicleForm/VehicleForm'
 
 
 class App extends Component {
@@ -78,7 +79,7 @@ class App extends Component {
                 <Redirect to="/" />}
           />
           <Route path='/profile/:id/edit' render = {props => this.state.loggedInUser ? <UserForm loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> : <Redirect to = '/login' />} ></Route>
-         
+          <Route path='/profile/:id/asignar-vehiculo' render={props => this.state.loggedInUser ? <VehicleForm loggedInUser={this.state.loggedInUser} setTheUser={this.setTheUser} {...props}/> : <Redirect to = '/login' />}/>
         </Switch>
       </>
     )
