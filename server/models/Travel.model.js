@@ -29,6 +29,9 @@ const travelSchema = new Schema({
         type: mongoose.ObjectId,
         ref: "User"
     },
+    originCoords: {
+        type: Object
+    },
     status: {
         type: String,
         enum: ['Pendiente', 'En proceso', 'Confirmado'],

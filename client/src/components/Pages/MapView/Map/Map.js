@@ -32,15 +32,15 @@ class Map extends Component {
       travelTime: "",
       distance: "",
       price: "",
-      owner: props.coordenates.owner
-
-
+      originCoords: "",
+      owner: props.coordenates.owner,
     };
     this.mapService = new MapService();
   }
 
   componentDidMount() {
     const directionsService = new google.maps.DirectionsService();
+
 
     const origin = this.props.coordenates.origin;
     const destination = this.props.coordenates.destination;
@@ -59,9 +59,10 @@ class Map extends Component {
             destination: result.routes[0].legs[0].end_address,
             travelTime: result.routes[0].legs[0].duration.text,
             distance: result.routes[0].legs[0].distance.text,
-            price: (result.routes[0].legs[0].distance.value *
-            0.0001
-          ).toFixed(2)       
+            originCoords: this.props.coordenates.origin,
+            price: (result.routes[0].legs[0].distance.value * 0.0001).toFixed(
+              2
+            ),
           });
         } else {
           console.error(`error fetching directions ${result}`);
@@ -76,25 +77,27 @@ class Map extends Component {
     });
   };
 
-  handleInputChange = e => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
-  }
-  
-  handleFormSubmit = e => {
-    e.preventDefault()
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
     this.mapService
-        .createTravel(this.state)
-        .then(() => this.props.originalProps.history.push('/perfil'))
-        .catch(err => console.log(err))
-  }
+      .createTravel(this.state)
+      .then(() => this.props.originalProps.history.push("/perfil"))
+      .catch((err) => console.log(err));
+  };
+
 
   render() {
-    console.log("Estas son las this.props del hijo", this.props)
+    console.log("Estas son las this.props del hijo", this.props);
+    console.log("ESTADO ACTUAL", this.state)
     const GoogleMapExample = withGoogleMap((props) => (
       <GoogleMap
         options={{
-          styles:  this.props.mapStyles 
+          styles: this.props.mapStyles,
         }}
         center={
           this.props.coordenates.origin.lat

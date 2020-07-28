@@ -57,6 +57,7 @@ router.put('/detalleRuta/:id/edit', checkAuth, (req, res, next) => {
 
 router.post('/mapa/nuevaRuta', checkAuth, (req, res, next) => {
 
+
     Travel.create(req.body)
         .then(response => res.json(response))
         .catch(err => next(err))

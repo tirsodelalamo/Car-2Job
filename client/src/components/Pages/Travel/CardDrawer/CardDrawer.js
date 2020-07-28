@@ -4,6 +4,7 @@ import TravelCard from '../TravelCard/TravelCard'
 
 import Row from 'react-bootstrap/Row'
 
+
 const CardDrawer = (props) => {
 
 
@@ -12,6 +13,7 @@ const CardDrawer = (props) => {
         
 
         <div>
+            
 
             {!props.travels ? <h3>CARGANDO</h3> :
 
@@ -21,5 +23,7 @@ const CardDrawer = (props) => {
         </div>
     )
 }
+
+
 
 export default CardDrawer
