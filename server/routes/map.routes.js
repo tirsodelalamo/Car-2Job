@@ -31,7 +31,10 @@ router.get('/detalleRuta/:id', checkAuth, (req, res, next) => {
 
     Travel.findById(req.params.id)
         .populate("owner")
-        .populate("driver")
+        .populate({
+            path: "driver",
+            populate: "vehicle"
+        })
         .then(response => res.json(response))
         .catch(err => next(err))
 })

@@ -23,10 +23,8 @@ class VehicleForm extends Component {
 
 
   handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    console.log("PROOOOOOOOOOOOOPS", this.props);
-    const id = this.props.usuario.loggedInUser._id;
+      e.preventDefault();
+      const id = this.props.usuario.loggedInUser._id
 
     this.authService
       .createVehicle(id, this.state)

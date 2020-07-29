@@ -43,16 +43,16 @@ class Navigation extends Component {
                   
                     (
                       <>
-                        {this.props.loggedInUser.role === "Pasajero" ?
+                        {this.props.loggedInUser.role === "Pasajero" &&
                         <Nav.Link as="span">
                           <NavLink to="/mapa" activeStyle={{ color: 'white' }}>Crea tu ruta</NavLink>
                         </Nav.Link>
-                        : null}
-                        {this.props.loggedInUser.role === "Conductor" ?
-                        <Nav.Link as="span">
-                          <NavLink to="/lista-viajes" activeStyle={{ color: 'white' }}>Rutas</NavLink>
-                        </Nav.Link>
-                        : null}
+                        }
+                        {this.props.loggedInUser.role === "Conductor" &&  
+                          <Nav.Link as="span">
+                            <NavLink to= "/lista-viajes" activeStyle={{ color: 'white' }}>Rutas</NavLink>                          
+                          </Nav.Link>
+                        }
                         <Nav.Link as="span">
                           <NavLink to="/perfil" activeStyle={{ color: 'white' }}>Perfil</NavLink>
                         </Nav.Link>

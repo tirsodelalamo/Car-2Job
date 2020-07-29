@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom'
 
 import './Traveldetail.css'
@@ -18,7 +19,8 @@ class TravelDetails extends Component {
         this.state = {
             travelDetails: undefined,
             statusDetail: "",
-            driver: {}
+            driver: {},
+            rating: undefined
 
         }
         this.mapService = new MapService()
@@ -138,11 +140,42 @@ class TravelDetails extends Component {
                 this.setState({statusDetail: ""})
                 break
         }
+    }
 
+    handleInputChange = (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value }, () => this.rateDriver())
+    }
+
+    rateDriver = () => {
+
+        const driverId = this.state.travelDetails.driver._id
+        const travelId = this.props.match.params.id
+
+        this.setState(prevState => ({
+            travelDetails: {
+                ...prevState.travelDetails,
+                driver:{
+                    ...prevState.travelDetails.driver,
+                    rating: parseInt(this.state.rating) + parseInt(this.state.travelDetails.driver.rating),
+                    numberOfRating: this.state.travelDetails.driver.numberOfRating++
+                }
+            }
+            }), () => this.updateRating( driverId, travelId))
+    }
+
+    updateRating = (driverId, travelId) => {
+
+        this.authService
+        .rateDriver(travelId, driverId, this.state)
+        .then(() => this.props.history.push("/perfil"))
+        .catch((err) => console.log(err));
+        
     }
 
     render() {
-
+        console.log("PROPS", this.props)
+        console.log("STATE", this.state)
         this.state.statusDetail && this.checkStatus()
         return (
 
@@ -161,63 +194,102 @@ class TravelDetails extends Component {
                             <p><b>Hora de Llegada:</b> {this.state.travelDetails.arrivalTime}</p>
                             <p><b>Precio:</b> {this.state.travelDetails.price}</p>
                             <p><b>Estado:</b> {this.state.travelDetails.status}</p>
-                            
 
-                            
-                        </Col>
-                        <Col md={{ span: 4, offset: 1 }}>
-                            <h2>Información del pasajero</h2>
-                            <img className="avatarClass" src={this.state.travelDetails.owner.imageUrl} alt={this.state.travelDetails.owner.username}></img>
-                            <p><b>Nombre:</b>{this.state.travelDetails.owner.name}</p>
-                            
-                            <hr></hr>
-                            {this.state.travelDetails.driver &&
-                            <div>
-                                <h2>Información del conductor:</h2>
-                                <img className="avatarClass" src={this.state.travelDetails.driver.imageUrl} alt={this.state.travelDetails.driver.username}></img>
-                                <p><b>Nombre:</b>{this.state.travelDetails.driver.name}</p>
-                                <p><b>Móvil:</b>{this.state.travelDetails.driver.phone}</p>
-                                <p><b>Correo Electrónico:</b>{this.state.travelDetails.driver.email}</p>
-                            </div>
-                            }
 
-                            
-                        </Col>
-                        
-                    </Row>
-                    <hr></hr>
-                    <Row>
-                    
-                        {this.props.loggedInUser._id === this.state.travelDetails.owner._id ?
+                            {this.props.loggedInUser._id === this.state.travelDetails.owner._id ?
                             
                             <div>
-                                <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
-                                {!this.state.travelDetails.status.includes("Confirmado") &&
-                                <Button onClick={this.deleteCard} variant="outline-dark" type="submit">Borrar</Button> 
-                                }
+                                
                                 {this.state.travelDetails.status.includes("En proceso") && 
-                                <div>
+                                <div className = "buttons">
+                                    <h3>¿Quieres aceptar a {this.state.travelDetails.driver.name} como conductor?</h3>
+                                    <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
                                     <Button as="input" onClick={this.changeStatus} variant="outline-success" name="statusDetail" type="submit" value = "Confirmar"/>
                                     <Button as="input" onClick={this.changeStatus} variant="outline-danger" name="statusDetail" type="submit" value = "Rechazar"/>
+                                    <Button onClick={this.deleteCard} variant="outline-dark" type="submit">Borrar Ruta</Button>
                                 </div>}
+        
+                                {this.state.travelDetails.status.includes("Pendiente") &&
+                                <div div className = "buttons">
+                                    <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
+                                    <Button onClick={this.deleteCard} variant="outline-dark" type="submit">Borrar Ruta</Button> 
+                                </div>
+                                }
+
+                                {this.state.travelDetails.status.includes("Confirmado") &&
+                                <div div className = "buttons">
+                                    <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
+                                    {this.state.travelDetails.rated === "No" &&
+                                    <Form>
+                                        <Form.Group controlId="exampleForm.ControlSelect1">
+                                        <Form.Label>
+                                            <strong>Valora al conductor</strong>
+                                        </Form.Label>
+                                        <Form.Control as="select" onChange={this.handleInputChange} value={this.state.rating} name="rating" type="number">
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </Form.Control>
+                                        </Form.Group>
+                                    </Form>
+                                    }
+                                </div>
+                                }
+                                <br></br>
+                                {this.state.travelDetails.driver.numberOfRating >= 1 ?                   
+                                <p>{this.state.travelDetails.driver.name} tiene una calificación media de {this.state.travelDetails.driver.averageRate}/5 tras {this.state.travelDetails.driver.numberOfRating} {this.state.travelDetails.driver.numberOfRating > 1 ? "votos" : "voto"}</p>
+                                :
+                                <p>{this.state.travelDetails.driver.name} aún no ha recibido ninguna valoración</p>  
+                                }  
+                                
                             </div>
                         :
                             
                             <div>
                                 
                                 {this.state.travelDetails.status === "Pendiente" ?
-                                <div>
+                                <div div className = "buttons">
+                                    <h3>¿Quieres llevar a {this.state.travelDetails.owner.name}?</h3>
                                     <Link className="btn btn-outline-dark btn-md" to='/lista-viajes'>Volver</Link>
                                     <Button as="input" onClick={this.changeStatus} variant="outline-success" name="statusDetail" type="submit" value='Aceptar'/> 
                                 </div>
                                 :
-                                    <Link className="btn btn-outline-dark btn-md" to='/perfil'>Volver</Link>
+                                    <Link className="btn btn-outline-dark btn-md buttons" to='/perfil' >Volver</Link>
                                 }
                                 
                             </div>
                         }
-                    </Row>
+       
+                        </Col>
+                        <Col md={{ span: 4, offset: 1 }}>
+                            <h2>Información del pasajero</h2>
+                            <img className="avatarClass" src={this.state.travelDetails.owner.imageUrl} alt={this.state.travelDetails.owner.username}></img>
+                            <p><b>Nombre:</b> {this.state.travelDetails.owner.name}</p>
+                            
+                            <hr></hr>
+                            {this.state.travelDetails.driver &&
+                            <div>
+                                <h2>Información del conductor:</h2>
+                                <img className="avatarClass" src={this.state.travelDetails.driver.imageUrl} alt={this.state.travelDetails.driver.username}></img>
+                                <p><b>Nombre:</b> {this.state.travelDetails.driver.name}</p>
+                                <p><b>Móvil:</b> {this.state.travelDetails.driver.phone}</p>
+                                <p><b>Correo Electrónico:</b> {this.state.travelDetails.driver.email}</p>
+                                <p><b>Marca Vehículo:</b> {this.state.travelDetails.driver.vehicle.brand}</p>
+                                <p><b>Modelo Vehículo:</b> {this.state.travelDetails.driver.vehicle.model}</p>
+                                <p><b>Combustible Vehículo:</b> {this.state.travelDetails.driver.vehicle.fuel}</p>
+                                <p><b>Matrícula Vehículo:</b> {this.state.travelDetails.driver.vehicle.plate}</p>
+                                <br></br>
+                                
+                            </div>
+                            }
 
+                            
+                        </Col>                      
+                    </Row>
+                    
                 </Container>
         )
     }

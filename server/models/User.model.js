@@ -35,6 +35,18 @@ const userSchema = new Schema({
     imageUrl: {
         type: String,
         default: 'https://res.cloudinary.com/dagpyusfp/image/upload/v1595351796/Car2Job/iconfinder-3-avatar-2754579_120516_t2fms7.png'
+    },
+    numberOfRating: {
+        type: Number,
+        default: 0
+    },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    averageRate: {
+        type: Number,
+        default: 0
     }
     
 }, {
