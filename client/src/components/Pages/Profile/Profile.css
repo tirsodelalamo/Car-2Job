@@ -1,3 +1,33 @@
 .avatarClass {
-    width: 200px
+    width: 60%
 }
+
+.profileContainer{
+    background-color: #e7e7e7;
+    border-radius: 1em;
+    margin: 1%
+}
+
+.profileContainer>div>h2 {
+    margin-top: 6%
+}
+
+.button{
+    margin-bottom: 10%;
+}
+
+.carButton{
+    margin-bottom: 7%;
+}
+
+.buttonsContainer{
+    display:flex;
+    justify-content: space-evenly;
+    width: 100%
+}
+
+.buttonsEnd{
+    padding-bottom: 6%;
+}
+
+

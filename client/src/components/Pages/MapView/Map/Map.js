@@ -114,12 +114,12 @@ class Map extends Component {
       <div>
         <Container>
           <Row>
-            <Col sm={6}>
+            <Col sm={12}>
               <GoogleMapExample
                 containerElement={
                   <div style={{ height: `500px`, width: "100%" }} />
                 }
-                mapElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `85%` }} />}
               />
             </Col>
             <Col sm={6}>

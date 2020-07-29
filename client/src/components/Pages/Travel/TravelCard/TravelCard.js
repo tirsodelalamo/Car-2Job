@@ -12,11 +12,13 @@ const TravelCard = ({ _id, origin, destination, arrivalTime, owner}) => {
     return (
         <Col md={4}>
             <Card className="travel-card">
-                <Card.Img variant="top" src={owner.imageUrl} /> 
+                <div>
+                <Card.Img variant="top" style={{width: "50%"}} src={owner.imageUrl} /> 
+                </div>
                 <Card.Body>
-                    <Card.Text>Origen: {origin}</Card.Text> 
-                    <Card.Text>Destino: {destination}</Card.Text>
-                    <Card.Text>{arrivalTime}</Card.Text>
+                    <Card.Text><strong>Origen:</strong> {origin}</Card.Text> 
+                    <Card.Text><strong>Destino:</strong> {destination}</Card.Text>
+                    <Card.Text><strong>{arrivalTime}</strong></Card.Text>
                     <Link to={`/detalleRuta/${_id}`} className="btn btn-dark btn-block btn-sm">Ver detalles de ruta</Link>
                 </Card.Body>
             </Card>

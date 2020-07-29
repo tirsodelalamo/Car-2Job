@@ -7,6 +7,7 @@ import PlacesAutocomplete, {
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import './InputSelectAuto.css'
 
 
 
@@ -57,14 +58,13 @@ class LocationSearchInput extends React.Component {
   }
 
   render() {
-      console.log("ESTE ES EL ESTADO DEL AUTOCOMPLETE",this.state)
       
     return (
       <>
         <Container>
           <Row>
-            <Col>
-              <h3>Origen:</h3>
+            <Col sm={12}>
+              <h5 >Origen:</h5>
               <PlacesAutocomplete
                 value={this.state.origin}
                 onSelect={this.handleSelectOrigin}
@@ -111,8 +111,8 @@ class LocationSearchInput extends React.Component {
               </PlacesAutocomplete>
             </Col>
 
-            <Col>      
-              <h3>Destino:</h3>
+            <Col sm={12}>      
+              <h5 className="titlesCreateRoute">Destino:</h5>
               <PlacesAutocomplete
                 value={this.state.destination}
                 onSelect={this.handleSelectDestination}

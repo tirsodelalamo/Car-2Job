@@ -96,42 +96,46 @@ class ProfileView extends Component {
     console.log(this.state)
         return (
           <>
-            <div className="container">
-              <div className="row">
-                <div className="col-6">
+            <div className="container ">
+              <div className="row justify-content-center profileContainer">
+                <div className="col-l-6 col-xs-12">
                   <h1>Hola {this.state.name}</h1>
-                  <img className="avatarClass" src={this.state.imageUrl} alt="Imagen de Perfil"></img> 
-                  {this.state.vehicle &&
+                  <img className="avatarClass" src={this.state.imageUrl} alt="Imagen de Perfil"></img>  
+                </div>
+                <div className="col-l-6 col-xs-12">
+                  <h2>Datos de Usuario</h2>
+                  <hr></hr>
+                  <p><strong>Nombre de Usuario:</strong> {this.state.username}</p>
+                  <p><strong>Nombre:</strong> {this.state.name}</p>
+                  <p><strong>Apellido:</strong> {this.state.lastName}</p>
+                  <p><strong>Correo electrónico:</strong> {this.state.email}</p>
+                  <p><strong>Teléfono:</strong> {this.state.phone}</p>
+                  <p><strong>Tipo de cuenta:</strong> {this.state.role}</p>
+                  <p><strong>Cartera:</strong> {(this.state.pocket).toFixed(2)}€</p> 
+                  {this.state.vehicle &&                  
+                  <Link to={`profile/${this.props.loggedInUser._id}/edit`} className="btn btn-dark btn-sm button">Editar perfil</Link>
+                  }
+                  {this.state.vehicle ?
                   <div>
                   <h2>Datos de Vehículo</h2>
                   <hr></hr>   
                   <p><strong>Marca:</strong> {this.state.vehicle.brand}</p>
                   <p><strong>Modelo:</strong> {this.state.vehicle.model}</p>
                   <p><strong>Matrícula:</strong> {this.state.vehicle.plate}</p>
-                  <p><strong>Combustible:</strong> {this.state.vehicle.fuel}</p>    
+                  <p><strong>Combustible:</strong> {this.state.vehicle.fuel}</p>                      
+                  <Button  onClick={() => this.handleModal(true)} className = "carButton" variant="dark" size="sm" >Editar vehículo</Button> 
                   </div>
-                  }    
-                </div>
-                <div className="col-6">
-                  <h2>Datos de Usuario</h2>
-                  <hr></hr>
-                  <p><strong>Nombre de Usuario:</strong> {this.state.username}</p>
-                  <p><strong>Nombre:</strong> {this.state.name}</p>
-
-                  <p><strong>Apellido:</strong> {this.state.lastName}</p>
-                  <p><strong>Correo electrónico:</strong> {this.state.email}</p>
-                  <p><strong>Teléfono:</strong> {this.state.phone}</p>
-                  <p><strong>Tipo de cuenta:</strong> {this.state.role}</p>
-                  <p><strong>Cartera:</strong> {(this.state.pocket).toFixed(2)}€</p>                   
-                  <Link to={`profile/${this.props.loggedInUser._id}/edit`} className="btn btn-dark btn-sm">Editar perfil</Link>
-                  {this.props.loggedInUser.vehicle ? 
-                  <Button  onClick={() => this.handleModal(true)} variant="dark" size="sm" >Editar vehículo</Button> 
                   :
-                  <Button  onClick={() => this.handleModal(true)} variant="dark" size="sm" >Crear vehículo</Button> 
-                  }
-                  <hr></hr>  
+                  <div className="buttonsContainer">
+                  <Link to={`profile/${this.props.loggedInUser._id}/edit`} className="btn btn-dark btn-sm carButton">Editar perfil</Link>
+                  <Button  onClick={() => this.handleModal(true)} className = "carButton" variant="dark" size="sm" >Crear vehículo</Button> 
+                  </div>
+                  } 
                   {this.state.numberOfRating > 0 &&
-                  <p>Tu Valoración Media es de {this.state.averageRate}/5 tras {this.state.numberOfRating} {this.state.numberOfRating === 1 ? "voto" : "votos"}</p>
+                  <div>
+                    <hr></hr> 
+                    <p>Tu Valoración Media es de <strong>{(this.state.averageRate).toFixed(1)}/5</strong> tras {this.state.numberOfRating} {this.state.numberOfRating === 1 ? "voto" : "votos"}</p>
+                  </div>
                   }                
                 </div>
               
@@ -139,30 +143,36 @@ class ProfileView extends Component {
             </div>
 
 
-            <div className="container">
-              <div className="row">
-                <div className="col-6">
-                  <h2>Rutas Conductor</h2>
+            <div className="container routesContainer">
+              <div className="row justify-content-center profileContainer">
+                <div className="col-l-6 col-xs-12">
+                  <h2>Rutas de Conductor</h2>
+                  <hr></hr> 
                   {this.state.driverTravels.length > 0 ?
                     <div>
-                      <Button as="input" onClick={this.changeStatus} variant="warning" active name="driverTravelsStatus" type="submit" value = "En proceso"/>
-                      <Button as="input" onClick={this.changeStatus} variant="success" active name="driverTravelsStatus" type="submit" value = "Confirmadas"/>
+                      <div>
+                      <Button as="input" onClick={this.changeStatus} variant="warning" size= "sm" active name="driverTravelsStatus" type="submit" value = "En proceso"/>
+                      <Button as="input" style={{marginLeft: "5%"}} onClick={this.changeStatus} variant="success" size= "sm" active name="driverTravelsStatus" type="submit" value = "Confirmadas"/>
+                      </div>
                       {this.state.driverTravelsStatus === "En proceso" &&
                       <CardDrawer travels = {this.state.driverTravels.filter(elm => elm.status === "En proceso")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
                       {this.state.driverTravelsStatus === "Confirmadas" &&
                       <CardDrawer travels = {this.state.driverTravels.filter(elm => elm.status === "Confirmado")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
                     </div>
                   :
-                  <p>No hay datos que mostrar</p>
+                  <p>No hay rutas que mostrar</p>
                   }
                 </div>
-                <div className="col-6">
-                  <h2>Mis Rutas</h2>
+                <div className="col-l-6 col-xs-12 ">
+                  <h2>Mis Rutas de Pasajero</h2>
+                  <hr></hr> 
                   {this.state.ownerTravels.length > 0 ?
-                    <div>
-                      <Button as="input" onClick={this.changeStatus} variant="primary" active name="myTravelsStatus" type="submit" value = "Pendientes"/>
-                      <Button as="input" onClick={this.changeStatus} variant="warning" active name="myTravelsStatus" type="submit" value = "En proceso"/>
-                      <Button as="input" onClick={this.changeStatus} variant="success" active name="myTravelsStatus" type="submit" value = "Confirmadas"/>
+                    <div >
+                      <div className= "buttonsEnd">
+                      <Button as="input"  onClick={this.changeStatus} variant="primary" size= "sm"  name="myTravelsStatus" type="submit" value = "Pendientes"/>
+                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="warning" size= "sm"  name="myTravelsStatus" type="submit" value = "En proceso"/>
+                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="success" size= "sm"  name="myTravelsStatus" type="submit" value = "Confirmadas"/>
+                      </div>
                       {this.state.myTravelsStatus === "Pendientes" &&
                         <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "Pendiente")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
                       {this.state.myTravelsStatus === "En proceso" &&
@@ -171,15 +181,15 @@ class ProfileView extends Component {
                         <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "Confirmado")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
                     </div>
                   :
-                  <p>No hay datos que mostrar</p>}
+                  <p>No hay rutas que mostrar</p>}
                 </div>
               </div>
             </div>
             <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
-                    <Modal.Body>
-                <VehicleForm usuario={this.props} onHide={() => this.handleModal(false)}/>
-                    </Modal.Body>
-                </Modal>
+                <Modal.Body>
+                  <VehicleForm usuario={this.props} onHide={() => this.handleModal(false)}/>
+                </Modal.Body>
+            </Modal>
           </>
         );
     }

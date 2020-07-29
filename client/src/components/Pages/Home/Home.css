@@ -1,0 +1,64 @@
+.container{
+    align-items: center;
+    text-align: center;
+    padding: 6%
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin: 0;
+    margin-bottom: 20%;
+    
+}
+
+h1 {
+    padding-top: 5% ;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.home > p {
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.articleContainer {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5%;
+    text-align: center
+    
+}
+
+.imageHome {
+    width: 50%;
+    padding: 5%;
+}
+
+.mainImage {
+    width: 100%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    position: absolute;
+    bottom: 0px;
+}
+
+article {
+    padding: 5%;
+}
+
+.line{
+    width:75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+}
+
+.lineContainer{
+    display: flex;
+}

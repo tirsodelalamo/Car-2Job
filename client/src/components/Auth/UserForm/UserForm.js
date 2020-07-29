@@ -9,6 +9,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+import './UserForm.css'
+import { Link } from 'react-router-dom'
+
 class UserForm extends Component {
     constructor(props){
         super(props)
@@ -21,7 +24,7 @@ class UserForm extends Component {
             phone: '',
             role: '',
             imageUrl: '',
-            // vehicle: {}
+            errorMessage: undefined
         }
         this.authService = new AuthService()
         this.filesService = new FilesService()    // CLOUDINARYCONFIG 
@@ -79,7 +82,7 @@ class UserForm extends Component {
         this.authService
             .signUp(this.state)
             .then (() => this.props.history.push('/'))
-            .catch(err => console.log(err))
+            .catch(err => this.setState({ errorMessage: err.response.data.message}))
         
     }
 
@@ -144,6 +147,12 @@ class UserForm extends Component {
                                 <Form.Control name="imageUrl" type="file" onChange={this.handleFileUpload}/>
                             </Form.Group>
                             : null}
+                            {this.state.errorMessage &&
+                            <p className = "errorMessage">{this.state.errorMessage}</p>
+                            }
+                            {this.props.location.pathname.includes('edit') &&
+                            <Link to="/perfil" className="btn btn-dark btn-md" style={{marginRight: "10%" }}>Volver</Link>
+                            }
                             <Button variant="dark" type="submit">Enviar</Button>
                         </Form>
                     </Col>

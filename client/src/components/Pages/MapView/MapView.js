@@ -24,14 +24,14 @@ class MapView extends Component {
     return (
       <>
         <div className= "container">
-          <h1>Crea tu ruta!</h1>
           <LocationSearchInput 
             setCoordsOrigin={this.setCoordsOrigin}
             setCoordsDestination={this.setCoordsDestination}
           />
+          <div className="map">
           <MapLoader originalProps = {this.props} coordenates = {this.state} googleMapURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBf8Nlxiwn7uJlN9-H0TWIqQMxIm527UHc" 
-          loadingElement={<div style={{ height: `100%` }} />}
-          />
+            loadingElement={<div style={{ height: `100%` }} />} />
+          </div>
         </div>
       </>
     );

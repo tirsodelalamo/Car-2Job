@@ -88,7 +88,7 @@ class TravelList extends Component {
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>
                 <strong>
-                  Filtra por distancia al origen de la ruta (en Km)
+                  Distancia al origen de la ruta (en Km)
                 </strong>
               </Form.Label>
               <Form.Control as="select" onChange={this.handleInputChange} value={this.state.filterDistance} name="filterDistance" type="number">
@@ -107,7 +107,7 @@ class TravelList extends Component {
           
           {this.state.travels ? 
           <div>
-            <h1>Pasajeros Disponibles</h1>
+            <h3>Pasajeros Disponibles</h3>
                 {!this.state.filterDistance ? 
                   <CardDrawer
                   travels={this.state.travels.filter(
@@ -129,5 +129,3 @@ class TravelList extends Component {
 }
 
 export default TravelList
-
-//travels.map(elm => elm.filter(calcDistance(this.state.currentLatLng.lat, this.state.currentLatLng.lng, this.originCoords.lat, this.originCoords.lng)<filterdistance))

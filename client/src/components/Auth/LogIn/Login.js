@@ -14,6 +14,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      errorMessage: undefined
     };
     this.authService = new AuthService();
   }
@@ -31,7 +32,7 @@ class Login extends Component {
         this.props.setTheUser(response.data);
         this.props.history.push("/");
       })
-      .catch((err) => console.log(err.response.data.message)); 
+      .catch((err) => this.setState({ errorMessage: err.response.data.message})); 
   };
 
   render() {
@@ -63,6 +64,9 @@ class Login extends Component {
                   type="password"
                 />
               </Form.Group>
+              {this.state.errorMessage &&
+                <p className = "errorMessage">{this.state.errorMessage}</p>
+              }
 
               <Button variant="dark" type="submit">
                 Iniciar sesión
