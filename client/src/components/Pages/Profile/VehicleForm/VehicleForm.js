@@ -21,20 +21,21 @@ class VehicleForm extends Component {
     this.setState({ [name]: value });
   };
 
+
   handleFormSubmit = (e) => {
-      e.preventDefault();
-      console.log(this.state)
-      console.log("PROOOOOOOOOOOOOPS", this.props)
-      const id = this.props.usuario.loggedInUser._id
+    e.preventDefault();
+    console.log(this.state);
+    console.log("PROOOOOOOOOOOOOPS", this.props);
+    const id = this.props.usuario.loggedInUser._id;
 
     this.authService
       .createVehicle(id, this.state)
       .then(() => this.props.usuario.history.push("/perfil"))
       .catch((err) => console.log(err));
-
   };
 
   render() {
+    console.log("Props que busco", this.props);
     return (
       <>
         <h3>Datos de tu vehículo</h3>
@@ -83,7 +84,7 @@ class VehicleForm extends Component {
               <option>Híbrido</option>
             </Form.Control>
           </Form.Group>
-          <Button variant="dark" type="submit">
+          <Button variant="dark" type="submit" onClick={this.props.onHide}>
             Aceptar
           </Button>
         </Form>

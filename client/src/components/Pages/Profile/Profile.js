@@ -164,7 +164,7 @@ class ProfileView extends Component {
             </div>
             <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <VehicleForm usuario = {this.props}/>
+                <VehicleForm usuario={this.props} onHide={() => this.handleModal(false)}/>
                     </Modal.Body>
                 </Modal>
           </>
