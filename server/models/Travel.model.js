@@ -32,6 +32,10 @@ const travelSchema = new Schema({
     originCoords: {
         type: Object
     },
+    rated: {
+        type: String,
+        default: "No"
+    },
     status: {
         type: String,
         enum: ['Pendiente', 'En proceso', 'Confirmado'],

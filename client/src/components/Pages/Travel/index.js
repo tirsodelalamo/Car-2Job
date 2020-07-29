@@ -70,7 +70,6 @@ class TravelList extends Component {
 
   filterTravels = () => {
     let copyTravels = [...this.state.travels]
-    let number = parseInt(this.state.filterDistance)
     const newArray = copyTravels.filter(elm => this.calcDistance(this.state.currentLatLng.lat, this.state.currentLatLng.lng, elm.originCoords.lat, elm.originCoords.lng) < this.state.filterDistance)
     this.setState({filteredTravels: newArray})
   }

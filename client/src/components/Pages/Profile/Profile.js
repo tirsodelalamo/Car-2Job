@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Link } from 'react-router-dom'
-import './Profile.css'
 import VehicleForm from './VehicleForm/VehicleForm'
 
 import CardDrawer from '../Travel/CardDrawer/CardDrawer'
@@ -10,6 +9,7 @@ import AuthService from '../../../service/AuthService'
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import './Profile.css'
 
 
 class ProfileView extends Component {
@@ -30,7 +30,9 @@ class ProfileView extends Component {
           pocket: 0,
           showModal: false,
           myTravelsStatus: "",
-          driverTravelsStatus: ""
+          driverTravelsStatus: "",
+          averageRate: "",
+          numberOfRating: ""
         };
         this.mapService = new MapService()
         this.authService = new AuthService()
@@ -41,8 +43,8 @@ class ProfileView extends Component {
     const id = this.props.loggedInUser._id
     this.updateTravelList()
     
-    this.authService.
-      getUser(id)
+    this.authService
+      .getUser(id)
         .then(res => this.updateUserState(res.data))
         .catch(err => console.log(err))
   }
@@ -53,13 +55,13 @@ class ProfileView extends Component {
 
   getProfileUserTravels = id => {
 
-    this.mapService.
-      getProfileUserTravels(id)
+    this.mapService
+      .getProfileUserTravels(id)
         .then(response => this.setState({ ownerTravels: response.data }))
         .catch(err => console.log(err))
 
-    this.mapService.
-      getProfileDriverTravels(id)
+    this.mapService
+      .getProfileDriverTravels(id)
         .then(response => this.setState({ driverTravels: response.data }))
         .catch(err => console.log(err))
   }
@@ -76,7 +78,9 @@ class ProfileView extends Component {
       role: data.role,
       imageUrl: data.imageUrl || "",
       vehicle: data.vehicle || "" ,
-      pocket: data.pocket || 0
+      pocket: data.pocket || 0,
+      averageRate: data.averageRate || "",
+      numberOfRating: data.numberOfRating || ""
     })
 
   }
@@ -88,38 +92,47 @@ class ProfileView extends Component {
   }
   
      
-  render() {
-
-      console.log("ESTADO", this.state)
-      console.log("PROPS", this.props)
-
-      
+  render() {    
+    console.log(this.state)
         return (
           <>
             <div className="container">
               <div className="row">
                 <div className="col-6">
                   <h1>Hola {this.state.name}</h1>
-                  <img className="avatarClass" src={this.state.imageUrl} alt="Imagen de Perfil"></img>                 
+                  <img className="avatarClass" src={this.state.imageUrl} alt="Imagen de Perfil"></img> 
+                  {this.state.vehicle &&
+                  <div>
+                  <h2>Datos de Vehículo</h2>
+                  <hr></hr>   
+                  <p><strong>Marca:</strong> {this.state.vehicle.brand}</p>
+                  <p><strong>Modelo:</strong> {this.state.vehicle.model}</p>
+                  <p><strong>Matrícula:</strong> {this.state.vehicle.plate}</p>
+                  <p><strong>Combustible:</strong> {this.state.vehicle.fuel}</p>    
+                  </div>
+                  }    
                 </div>
                 <div className="col-6">
                   <h2>Datos de Usuario</h2>
                   <hr></hr>
                   <p><strong>Nombre de Usuario:</strong> {this.state.username}</p>
                   <p><strong>Nombre:</strong> {this.state.name}</p>
+
                   <p><strong>Apellido:</strong> {this.state.lastName}</p>
                   <p><strong>Correo electrónico:</strong> {this.state.email}</p>
                   <p><strong>Teléfono:</strong> {this.state.phone}</p>
                   <p><strong>Tipo de cuenta:</strong> {this.state.role}</p>
-                  <p><strong>Cartera:</strong> {(this.state.pocket).toFixed(2)}€</p> 
-                  <Button onClick={() => this.handleModal(true)} variant="dark" size="sm" style={{ marginBottom: '20px' }}>Crear vehículo</Button>
-                  <hr></hr>
-                  <Link
-                    to={`profile/${this.props.loggedInUser._id}/edit`}
-                    className="btn btn-dark btn-sm"
-                  >
-                    Edita tu perfil
-                  </Link>
+                  <p><strong>Cartera:</strong> {(this.state.pocket).toFixed(2)}€</p>                   
+                  <Link to={`profile/${this.props.loggedInUser._id}/edit`} className="btn btn-dark btn-sm">Editar perfil</Link>
+                  {this.props.loggedInUser.vehicle ? 
+                  <Button  onClick={() => this.handleModal(true)} variant="dark" size="sm" >Editar vehículo</Button> 
+                  :
+                  <Button  onClick={() => this.handleModal(true)} variant="dark" size="sm" >Crear vehículo</Button> 
+                  }
+                  <hr></hr>  
+                  {this.state.numberOfRating > 0 &&
+                  <p>Tu Valoración Media es de {this.state.averageRate}/5 tras {this.state.numberOfRating} {this.state.numberOfRating === 1 ? "voto" : "votos"}</p>
+                  }                
                 </div>
               
               </div>
