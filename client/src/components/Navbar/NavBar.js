@@ -12,7 +12,12 @@ import './NavBar.css'
 class Navigation extends Component {
 
     constructor(props) {
-        super(props)
+      super(props)
+      
+      this.state = { //OJO
+        navExpanded: false,
+      };
+
         this.AuthService = new AuthService()
 
     }
@@ -25,9 +30,16 @@ class Navigation extends Component {
         })
         .catch(err => console.log(err))
     }
+  
+  setNavExpanded = (expanded) => { //OJO
+    this.setState({ navExpanded: expanded });
+  }
 
+  setNavClose = () => { //OJO
+    this.setState({ navExpanded: false });
+  }
 
-
+    
     render() {
         
         return (
@@ -109,8 +121,64 @@ class Navigation extends Component {
           //   </Navbar>
           // </>
 
+
+          //ULTIMA VERSION 
+//           <>
+//             <Navbar collapseOnSelect expand="lg" className = "customNav">
+//               <Navbar.Brand href="#home">
+//                 <NavLink to="/" className= "brand" style={{ color: 'black' }}>Car2Job</NavLink>
+//               </Navbar.Brand>
+//               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+//               <Navbar.Collapse id="responsive-navbar-nav" >
+//                 <Nav className="mr-auto">
+//                     <Nav.Link as="span">
+//                       <NavLink exact to="/" exact style={{ color: 'black' }}>Inicio</NavLink>
+//                     </Nav.Link>
+//                     {this.props.loggedInUser ?
+//                     (
+//                       <>
+//                         {this.props.loggedInUser.role === "Pasajero" &&
+//                         <Nav.Link as="span">
+//                           <NavLink to="/mapa" style={{ color: 'black' }}>Crea tu ruta</NavLink>
+//                         </Nav.Link>
+//                         }
+//                         {this.props.loggedInUser.role === "Conductor" &&  
+//                           <Nav.Link as="span">
+//                             <NavLink to= "/lista-viajes" style={{ color: 'black' }}>Rutas</NavLink>                          
+//                           </Nav.Link>
+//                         }
+//                         <Nav.Link as="span">
+//                           <NavLink to="/perfil" style={{ color: 'black' }}>Perfil</NavLink>
+//                         </Nav.Link>
+//                         <Nav.Link as="span">
+//                           <NavLink to = "/" ><span onClick={this.logout} style={{ color: 'black' }}>Cerrar Sesión</span></NavLink>
+//                         </Nav.Link>
+//                       </>
+//                     )
+//                     :(
+//                       <>
+//                         <Nav.Link as="span">
+//                           <NavLink to="/login" style={{ color: 'black' }}>Inicio de sesión</NavLink>
+//                         </Nav.Link>
+//                         <Nav.Link as="span">
+//                           <NavLink to="/signup" style={{ color: 'black' }}>Registro</NavLink>
+//                         </Nav.Link>
+//                       </>
+//                     )}
+//                 </Nav>
+//               </Navbar.Collapse>
+//             </Navbar>
+//           </>
+//         );
+        
+//     }
+// }
+
+// export default Navigation
+
+
           <>
-            <Navbar collapseOnSelect expand="lg" className = "customNav">
+            <Navbar collapseOnSelect expand="lg" className = "customNav" onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
               <Navbar.Brand href="#home">
                 <NavLink to="/" className= "brand" style={{ color: 'black' }}>Car2Job</NavLink>
               </Navbar.Brand>
@@ -118,36 +186,36 @@ class Navigation extends Component {
               <Navbar.Collapse id="responsive-navbar-nav" >
                 <Nav className="mr-auto">
                     <Nav.Link as="span">
-                      <NavLink to="/" exact style={{ color: 'black' }}>Inicio</NavLink>
+                      <NavLink onClick={this.setNavClose} exact to="/" exact style={{ color: 'black' }}>Inicio</NavLink>
                     </Nav.Link>
                     {this.props.loggedInUser ?
                     (
                       <>
                         {this.props.loggedInUser.role === "Pasajero" &&
                         <Nav.Link as="span">
-                          <NavLink to="/mapa" style={{ color: 'black' }}>Crea tu ruta</NavLink>
+                          <NavLink onClick={this.setNavClose} to="/mapa" style={{ color: 'black' }}>Crea tu ruta</NavLink>
                         </Nav.Link>
                         }
                         {this.props.loggedInUser.role === "Conductor" &&  
                           <Nav.Link as="span">
-                            <NavLink to= "/lista-viajes" style={{ color: 'black' }}>Rutas</NavLink>                          
+                            <NavLink onClick={this.setNavClose} to= "/lista-viajes" style={{ color: 'black' }}>Rutas</NavLink>                          
                           </Nav.Link>
                         }
                         <Nav.Link as="span">
-                          <NavLink to="/perfil" style={{ color: 'black' }}>Perfil</NavLink>
+                          <NavLink onClick={this.setNavClose} to="/perfil" style={{ color: 'black' }}>Perfil</NavLink>
                         </Nav.Link>
                         <Nav.Link as="span">
-                          <NavLink to = "/" ><span onClick={this.logout} style={{ color: 'black' }}>Cerrar Sesión</span></NavLink>
+                          <NavLink onClick={this.setNavClose} to = "/" ><span onClick={this.logout} style={{ color: 'black' }}>Cerrar Sesión</span></NavLink>
                         </Nav.Link>
                       </>
                     )
                     :(
                       <>
                         <Nav.Link as="span">
-                          <NavLink to="/login" style={{ color: 'black' }}>Inicio de sesión</NavLink>
+                          <NavLink onClick={this.setNavClose} to="/login" style={{ color: 'black' }}>Inicio de sesión</NavLink>
                         </Nav.Link>
                         <Nav.Link as="span">
-                          <NavLink to="/signup" style={{ color: 'black' }}>Registro</NavLink>
+                          <NavLink onClick={this.setNavClose} to="/signup" style={{ color: 'black' }}>Registro</NavLink>
                         </Nav.Link>
                       </>
                     )}
