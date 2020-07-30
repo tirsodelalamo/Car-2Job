@@ -1,4 +1,4 @@
-.container{
+.container {
     align-items: center;
     text-align: center;
     padding: 6%;
@@ -16,10 +16,10 @@ body {
     /* background-color: #b9e769; c5d86d   BCED91*/
     color: #190933;
     background-color: #c5d86d;
-    
+
 }
 
-.home>h1{
+.home>h1 {
     padding-top: 11%;
     text-align: center;
     font-family: 'Josefin Sans', sans-serif;
@@ -29,12 +29,12 @@ body {
 }
 
 h1 {
-    padding-top: 5% ;
+    padding-top: 5%;
     text-align: center;
-    
+
 }
 
-.home > p {
+.home>p {
     text-align: center;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 19px;
@@ -48,7 +48,6 @@ h1 {
     padding-top: 5%;
     text-align: center;
     align-items: center
-    
 }
 
 .imageHome {
@@ -68,15 +67,15 @@ article {
     padding: 5%;
 }
 
-.line{
-    width:75%;
+.line {
+    width: 75%;
     margin-left: auto;
     margin-right: auto;
     display: block;
 
 }
 
-.lineContainer{
+.lineContainer {
     display: flex;
 }
 
@@ -86,13 +85,6 @@ article {
     width: 7%
 }
 
-.iconsContainer{
-    display:flex;
-    justify-content: space-around;
-    width:60%;
-    margin-left: auto;
-    margin-right: auto;
+.lastSection {
     margin-top: 30%;
-    position: relative;
-    z-index: 4
 }
