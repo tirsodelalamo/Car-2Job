@@ -1,26 +1,32 @@
 {
   "files": {
-    "main.css": "/static/css/main.fbc00c26.chunk.css",
-    "main.js": "/static/js/main.76c580c8.chunk.js",
-    "main.js.map": "/static/js/main.76c580c8.chunk.js.map",
+    "main.css": "/static/css/main.2f6818c4.chunk.css",
+    "main.js": "/static/js/main.34c849bd.chunk.js",
+    "main.js.map": "/static/js/main.34c849bd.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.8a49f16e.js",
     "runtime-main.js.map": "/static/js/runtime-main.8a49f16e.js.map",
     "static/css/2.af3c1da9.chunk.css": "/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ca33b851.chunk.js": "/static/js/2.ca33b851.chunk.js",
-    "static/js/2.ca33b851.chunk.js.map": "/static/js/2.ca33b851.chunk.js.map",
+    "static/js/2.91a416b5.chunk.js": "/static/js/2.91a416b5.chunk.js",
+    "static/js/2.91a416b5.chunk.js.map": "/static/js/2.91a416b5.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.427c98c7a972971069417b168a0b047a.js": "/precache-manifest.427c98c7a972971069417b168a0b047a.js",
+    "precache-manifest.4cc3caad98dfcd1a1d8239d83c0d09d1.js": "/precache-manifest.4cc3caad98dfcd1a1d8239d83c0d09d1.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.af3c1da9.chunk.css.map": "/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.fbc00c26.chunk.css.map": "/static/css/main.fbc00c26.chunk.css.map",
-    "static/js/2.ca33b851.chunk.js.LICENSE.txt": "/static/js/2.ca33b851.chunk.js.LICENSE.txt",
-    "static/media/kisspng-map-drawing-pin-clip-art-map-marker-5b0bc686f2e9c7.724277061527498374995.png": "/static/media/kisspng-map-drawing-pin-clip-art-map-marker-5b0bc686f2e9c7.724277061527498374995.66406733.png"
+    "static/css/main.2f6818c4.chunk.css.map": "/static/css/main.2f6818c4.chunk.css.map",
+    "static/js/2.91a416b5.chunk.js.LICENSE.txt": "/static/js/2.91a416b5.chunk.js.LICENSE.txt",
+    "static/media/PinClipart.com_car-rental-clipart_1329195.png": "/static/media/PinClipart.com_car-rental-clipart_1329195.085c7729.png",
+    "static/media/instagram.png": "/static/media/instagram.1f429d1f.png",
+    "static/media/line.png": "/static/media/line.a2706430.png",
+    "static/media/oie_oLycOr08VxN6.png": "/static/media/oie_oLycOr08VxN6.e4cab9e9.png",
+    "static/media/pngflow.com.png": "/static/media/pngflow.com.9611e4ae.png",
+    "static/media/pngfuel.com.png": "/static/media/pngfuel.com.79d45ea6.png",
+    "static/media/twitter.png": "/static/media/twitter.c228a51f.png"
   },
   "entrypoints": [
     "static/js/runtime-main.8a49f16e.js",
     "static/css/2.af3c1da9.chunk.css",
-    "static/js/2.ca33b851.chunk.js",
-    "static/css/main.fbc00c26.chunk.css",
-    "static/js/main.76c580c8.chunk.js"
+    "static/js/2.91a416b5.chunk.js",
+    "static/css/main.2f6818c4.chunk.css",
+    "static/js/main.34c849bd.chunk.js"
   ]
 }

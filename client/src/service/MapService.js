@@ -5,10 +5,9 @@ export default class MapService {
     constructor() {
 
         this.service = axios.create({
-
-            baseURL: 'http://localhost:5000/api', //CAMBIAR PARA DEPLOY
-            withCredentials: true
-        })
+          baseURL: process.env.REACT_APP_API_URL, 
+          withCredentials: true,
+        });
     }
 
     getAllTravels = () => this.service.get('/lista-viajes')
