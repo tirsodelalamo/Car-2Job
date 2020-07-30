@@ -34,7 +34,7 @@ const userSchema = new Schema({
     },
     imageUrl: {
         type: String,
-        default: 'https://res.cloudinary.com/dagpyusfp/image/upload/v1595351796/Car2Job/iconfinder-3-avatar-2754579_120516_t2fms7.png'
+        default: 'https://res.cloudinary.com/dagpyusfp/image/upload/v1596124343/Car2Job/PngItem_786293_m62oxn.png'
     },
     numberOfRating: {
         type: Number,

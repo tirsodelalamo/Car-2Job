@@ -15,6 +15,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import mapStyles from './MapStyles'
+import './map.css'
 
 class Map extends Component {
   constructor(props) {
@@ -123,7 +124,7 @@ class Map extends Component {
             <Col sm={6}>
               {this.state.directions ? (
                 <>
-                  <div>
+                  <div className = "detailsRoute">
                     <h2>Detalles de ruta:</h2>
                     <hr></hr>
                     <p>
