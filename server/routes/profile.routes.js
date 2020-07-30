@@ -16,6 +16,16 @@ router.post('/:id/nuevo-vehiculo', (req, res, next) => {
       .catch((err) => console.log(err));
 })
 
+router.put('/:carId/editar-vehiculo', (req, res, next) => {
+
+  const { brand, model, plate, fuel} = req.body
+
+  Car.findByIdAndUpdate(req.params.carId, {brand, model, plate, fuel}, {new: true})
+    .then(vehicle => res.json(vehicle))
+    .catch(error => console.log(error))
+})
+
+
 router.put('/detalleRuta/:id/edit', checkAuth, (req, res, next) => {
 
   let newPocket = {}

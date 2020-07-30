@@ -19,5 +19,6 @@ export default class AuthService {
     isLoggedIn = () => this.service.get('/loggedin')
     createVehicle = (id, vehicle) => this.service.post(`/profile/${id}/nuevo-vehiculo`, vehicle)
     rateDriver = (travelId, driverId, state) => this.service.put(`/profile/detalleRuta/${travelId}/edit/${driverId}`, state)  
+    editVehicle = (carId, car) => this.service.put(`/profile/${carId}/editar-vehiculo`, car)
 
 }

@@ -1,10 +1,13 @@
 import React from 'react'
 
-import imageMoney from '../../../public/5a29806fb5d5a7.2259796915126692957448.png'
+import imageMoney from '../../../public/pngflow.com.png'
 import peopleInCar from '../../../public/PinClipart.com_car-rental-clipart_1329195.png'
 import skyline from '../../../public/oie_oLycOr08VxN6.png'
 import line from '../../../public/line.png'
 import imageGreen from '../../../public/pngfuel.com.png'
+import facebookIcon from '../../../public/facebook.png'
+import instagramIcon from '../../../public/instagram.png'
+import twitterIcon from '../../../public/twitter.png'
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import './Home.css'
@@ -20,10 +23,10 @@ const Home = () => {
             <img className = "line" src={line} alt="line"/>
             </div>
             <section className = "articleContainer">
-                <img src={imageMoney} alt="imageMoney" className="imageHome"></img>
+                <img src={imageGreen} alt="imageGreen" className="imageHome"></img>
                 <article>
-                    <h3>¡Ahorra!</h3>
-                    <p>El combustible es más barato entre 2...</p>  
+                    <h3>¡Piensa en Verde!</h3>
+                    <p>Menos tráfico, menos CO2.</p>  
                 </article>
             </section>
             <section className = "articleContainer">
@@ -34,13 +37,18 @@ const Home = () => {
                 <img src={peopleInCar} alt="peopleincar" className="imageHome"></img>
             </section>
             <section className = "articleContainer">
-                <img src={imageGreen} alt="imageGreen" className="imageHome"></img>
+                <img src={imageMoney} alt="imageMoney" className="imageHome"></img>
                 <article>
-                    <h3>¡Piensa en Verde!</h3>
-                    <p>Menos tráfico, menos CO2.</p>  
+                    <h3>¡Ahorra!</h3>
+                    <p>El combustible es más barato entre 2...</p>  
                 </article>
             </section>
-            <section>
+            <section className="iconsContainer">
+                    <img className = "icons" src={facebookIcon} alt="facebook" />
+                    <img className = "icons" src={twitterIcon} alt="twitter" />
+                    <img className = "icons" src={instagramIcon} alt="instagram" />
+            </section>
+            <section className = "lastSection">
                 <img className="mainImage" src= {skyline} alt="mainImage"></img>
             </section>
         </main>
@@ -48,3 +56,4 @@ const Home = () => {
 }
 
 export default Home
+

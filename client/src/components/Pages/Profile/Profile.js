@@ -90,10 +90,13 @@ class ProfileView extends Component {
     const { name, value } = e.target
     this.setState({ [name]: value } ) 
   }
-  
-     
+
+  handleCarSubmit = () => {
+    this.handleModal(false)
+    this.componentDidMount()
+}
+      
   render() {    
-    console.log(this.state)
         return (
           <>
             <div className="container ">
@@ -169,9 +172,9 @@ class ProfileView extends Component {
                   {this.state.ownerTravels.length > 0 ?
                     <div >
                       <div className= "buttonsEnd">
-                      <Button as="input"  onClick={this.changeStatus} variant="primary" size= "sm"  name="myTravelsStatus" type="submit" value = "Pendientes"/>
-                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="warning" size= "sm"  name="myTravelsStatus" type="submit" value = "En proceso"/>
-                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="success" size= "sm"  name="myTravelsStatus" type="submit" value = "Confirmadas"/>
+                      <Button as="input"  onClick={this.changeStatus} variant="primary" size= "sm" active name="myTravelsStatus" type="submit" value = "Pendientes"/>
+                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="warning" size= "sm" active name="myTravelsStatus" type="submit" value = "En proceso"/>
+                      <Button as="input" style={{marginLeft: "3%" }} onClick={this.changeStatus} variant="success" size= "sm" active name="myTravelsStatus" type="submit" value = "Confirmadas"/>
                       </div>
                       {this.state.myTravelsStatus === "Pendientes" &&
                         <CardDrawer travels = {this.state.ownerTravels.filter(elm => elm.status === "Pendiente")} loggedInUser={this.props.loggedInUser} {...this.props}/>}
@@ -187,7 +190,7 @@ class ProfileView extends Component {
             </div>
             <Modal size="lg" show={this.state.showModal} onHide={() => this.handleModal(false)}>
                 <Modal.Body>
-                  <VehicleForm usuario={this.props} onHide={() => this.handleModal(false)}/>
+                <VehicleForm user={this.props} handleCar={this.handleCarSubmit} />
                 </Modal.Body>
             </Modal>
           </>

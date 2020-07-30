@@ -41,7 +41,6 @@ class Map extends Component {
   componentDidMount() {
     const directionsService = new google.maps.DirectionsService();
 
-
     const origin = this.props.coordenates.origin;
     const destination = this.props.coordenates.destination;
 
@@ -92,8 +91,7 @@ class Map extends Component {
 
 
   render() {
-    console.log("Estas son las this.props del hijo", this.props);
-    console.log("ESTADO ACTUAL", this.state)
+
     const GoogleMapExample = withGoogleMap((props) => (
       <GoogleMap
         options={{
@@ -117,9 +115,9 @@ class Map extends Component {
             <Col sm={12}>
               <GoogleMapExample
                 containerElement={
-                  <div style={{ height: `500px`, width: "100%" }} />
+                  <div style={{ height: `425px`, width: "100%" }} />
                 }
-                mapElement={<div style={{ height: `85%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
               />
             </Col>
             <Col sm={6}>
@@ -148,7 +146,7 @@ class Map extends Component {
                       <strong>El coste de la ruta es de: </strong>
                       {(
                         this.state.directions.routes[0].legs[0].distance.value *
-                        0.0001
+                        0.0002
                       ).toFixed(2)}
                       €
                     </p>

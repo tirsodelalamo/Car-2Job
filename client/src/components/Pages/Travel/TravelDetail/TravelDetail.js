@@ -20,7 +20,8 @@ class TravelDetails extends Component {
             travelDetails: undefined,
             statusDetail: "",
             driver: {},
-            rating: undefined
+            rating: undefined,
+            noMoney: undefined
 
         }
         this.mapService = new MapService()
@@ -59,7 +60,7 @@ class TravelDetails extends Component {
 
         if (this.state.travelDetails.owner.pocket < this.state.travelDetails.price) {
 
-            console.log("No tienes dinero")
+           this.setState({noMoney: "No tienes fondos suficientes"})
          
         } else {
             
@@ -94,7 +95,6 @@ class TravelDetails extends Component {
             .updateTravel(travelId, this.state)
             .then(() => this.props.history.push('/perfil'))
             .catch(err => console.log("TRAVEL",err))
-
         
     }
 
@@ -174,8 +174,7 @@ class TravelDetails extends Component {
     }
 
     render() {
-        console.log("PROPS", this.props)
-        console.log("STATE", this.state)
+
         this.state.statusDetail && this.checkStatus()
         return (
 
@@ -199,32 +198,33 @@ class TravelDetails extends Component {
 
                             {this.props.loggedInUser._id === this.state.travelDetails.owner._id ?
                             
-                            <div className = "acceptDriver">
-                                
+                            <div>
                                 {this.state.travelDetails.status.includes("En proceso") && 
-                                <div className = "buttons">
-                                    <h3>¿Quieres aceptar a {this.state.travelDetails.driver.name} como conductor?</h3>
-                                    <Button as="input" onClick={this.changeStatus} variant="success" name="statusDetail" type="submit" value = "Confirmar"/>
-                                    <Button as="input" style = {{marginLeft: "5%"}} onClick={this.changeStatus} variant="danger" name="statusDetail" type="submit" value = "Rechazar"/>
-                                </div>}
-                                <br></br>
-                                {this.state.travelDetails.driver &&
-                                <div className = "prueba">
-                                    {this.state.travelDetails.driver.numberOfRating >= 1 ?                   
-                                    <p>{this.state.travelDetails.driver.name} tiene una calificación media de <strong>{(this.state.travelDetails.driver.averageRate).toFixed(1)}/5</strong> tras {this.state.travelDetails.driver.numberOfRating} {this.state.travelDetails.driver.numberOfRating > 1 ? "votos" : "voto"}</p>
-                                    :
-                                    <p>{this.state.travelDetails.driver.name} aún no ha recibido ninguna valoración</p>  
-                                    }  
+                                <div className = "acceptDriver">
+                                    <div className = "buttons">
+                                        <h3>¿Quieres aceptar a {this.state.travelDetails.driver.name} como conductor?</h3>
+                                        <Button as="input" onClick={this.changeStatus} variant="success" name="statusDetail" type="submit" value = "Confirmar"/>
+                                        <Button as="input" style = {{marginLeft: "5%"}} onClick={this.changeStatus} variant="danger" name="statusDetail" type="submit" value = "Rechazar"/>
+                                        <p>{this.state.noMoney}</p>
+                                    </div>
+                                    <br></br>
+                                    <div className = "driverRate">
+                                        {this.state.travelDetails.driver.numberOfRating >= 1 ?                   
+                                        <p>{this.state.travelDetails.driver.name} tiene una calificación media de <strong>{(this.state.travelDetails.driver.averageRate).toFixed(1)}/5</strong> tras {this.state.travelDetails.driver.numberOfRating} {this.state.travelDetails.driver.numberOfRating > 1 ? "votos" : "voto"}</p>
+                                        :
+                                        <p>{this.state.travelDetails.driver.name} aún no ha recibido ninguna valoración</p>  
+                                        }  
+                                    </div>
                                 </div>
                                 }
-                                
                             </div>
+                          
                         :
                             
                             <div>
                                 
                                 {this.state.travelDetails.status === "Pendiente" &&
-                                <div div className = "acceptUser">
+                                <div className = "acceptUser">
                                     <h2 className= "buttonsAsk">¿Quieres llevar a {this.state.travelDetails.owner.name}?</h2>  
                                     <Button as="input"  onClick={this.changeStatus} variant="success" name="statusDetail" type="submit" value='Aceptar'/> 
                                 </div>
