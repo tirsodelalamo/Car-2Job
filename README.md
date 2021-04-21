@@ -27,4 +27,4 @@ First at all, you'll need to be logged in, then you'll find two different roles:
 - Mongoose
 
 
-### Made with :heart: by [Víctor Sánchez](https://www.linkedin.com/in/victor-sanchez-leal/) y [Tirso del Álamo](https://www.linkedin.com/in/tirsodelalamomartin/) 
+
